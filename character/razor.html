@@ -51,7 +51,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
 <nav class="w3-sidebar w3-bar-block w3-black w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
     <div class="w3-container w3-display-container w3-padding-16">
       <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-      <h3 class="w3-wide"><b>Genshin database</b></h3>
+      <a href="/" style="text-decoration: none;"><h3 class="w3-wide"><b>Genshin database</b></h3></a>
     </div>
     
     <div class="w3-large " >
@@ -85,7 +85,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
               Database <i class="fa fa-caret-down"></i>
             </a>
       <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-        <a href="/" class="w3-bar-item w3-button w3-dark-grey">Character list</a>
+        <a href="/" class="w3-bar-item w3-button w3-dark-grey">Home</a>
         <a href="/tools/talent.html" class="w3-bar-item w3-button w3-dark-grey">Talent Materials</a>
         <a href="/tools/weapon.html" class="w3-bar-item w3-button w3-dark-grey">Weapon Materials</a>
         <a href="/tools/artifact.html" class="w3-bar-item w3-button w3-dark-grey">Artifact domain</a>
@@ -107,7 +107,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
       <p class="w3-display-left" style="margin-left: 14px;margin-top: 23px;">4 ☆ Electro &#8226; Claymore</p>
     </div>
     <div class="w3-black w3-bar w3-top w3-display-container w3-hide-large" style="height: 88px;">
-      <h1 style="margin-left:10px;width:auto;" >Razor</h1>
+      <a href="javascript:void(0)" onclick="tothetopu()" style="text-decoration: none;"><h1 style="margin-left:10px;width:auto;" >Razor</h1></a>
         <p class="w3-display-left" style="margin-left: 14px;margin-top: 23px;">4 ☆ Electro &#8226; Claymore</p>
         <a href="javascript:void(0)" style="margin-right:10px" class="w3-bar-item w3-hide-large w3-display-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
     </div>
@@ -521,7 +521,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
           <a href="/character/lisa.html"><img src="/img/character/head/Lisa.png" style="width:120px; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a>
           <a href="/character/raiden.html"><img src="/img/character/head/Raiden.png" style="width:120px; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a>
           <a href="/character/keqing.html"><img src="/img/character/head/Keqing.png" style="width:120px; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a>
-   
+          <a href="/character/bennett.html"><img src="/img/character/head/Bennett.png" style="width:120px; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a>
         </div>
 </div>
 <footer class="w3-padding-16 w3-black w3-small w3-center" >
@@ -559,4 +559,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
       document.getElementById("mySidebar").style.display = "none";
       document.getElementById("myOverlay").style.display = "none";
     }
+    function tothetopu() {
+    document.body.scrollTop = 0;
+    } 
     </script>
