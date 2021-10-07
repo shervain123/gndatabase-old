@@ -535,6 +535,7 @@ var fuck_you = document.getElementById("fuck")
 var why_the_fuck_are_you_doing_this_to_me = document.getElementById("why")
 fuck_you.classList.remove("hide")
 why_the_fuck_are_you_doing_this_to_me.classList.remove("hide")
+noti()
     }
    
     
@@ -552,5 +553,19 @@ why_the_fuck_are_you_doing_this_to_me.classList.remove("hide")
     function tothetopu() {
     document.body.scrollTop = 0;
     } 
+    function horny() {
+      var options = {icon:"/img/character/why the fuck are you doing this to me/gtfo.jpg",body:"Shut the fuck up @Devsherx"}; 
+      new Notification("Twitter",options)
+    }
+    function noti() {
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+  }
+  else if (Notification.permission === "granted") {
+    horny()
+  }
+  else if (Notification.permission !== "denied") {
+    alert("Go to horny Jail")
+  }
+}
     </script>
-    
