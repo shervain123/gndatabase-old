@@ -565,7 +565,15 @@ noti()
     horny()
   }
   else if (Notification.permission !== "denied") {
-    alert("Go to horny Jail")
+    Notification.requestPermission().then(function (permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        var notification = new Notification("Hi there!");
+      }else{
+        alert("Go to horny Jail")
+      }
+    });
+    
   }
 }
     </script>
