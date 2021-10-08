@@ -48,6 +48,36 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
 .show {
   display: block;
 }
+#myInput {
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: auto;
+  font-size: 16px;
+  padding: 12px 20px 12px 30px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myUL {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#myUL li a {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block
+}
+
+#myUL li a:hover:not(.header) {
+  background-color: #eee;
+}
 </style>
 <body class="w3-black">
 <div class="w3-black">
@@ -106,70 +136,71 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
         <button class="w3-button w3-black" onclick="filterSelection('geo')"><img src="/img/items/element/geo.png" style="width:22.5px"></button>
         <button class="w3-button w3-black" onclick="filterSelection('hydro')"><img src="/img/items/element/hydro.png" style="width:22.5px"></button>
         <button class="w3-button w3-black" onclick="filterSelection('pyro')"><img src="/img/items/element/pyro.png" style="width:22.5px"></button>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by name or element..." title="Type in a name">
       </div>
-        <div class="w3-row w3-light-grey" style="margin-top:10px">
+        <div class="w3-row w3-light-grey" style="margin-top:10px" id="characterlist">
           
             <!--a-->
-            <div class="w3-container w3-col filterDiv geo"style="width:125px">
-            <a href="/character/albedo.html"><img src="/img/character/head/Albedo.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <div class="albedo w3-container w3-col filterDiv geo"style="width:125px">
+            <a  id="albedo geo" href="/character/albedo.html"><img src="/img/character/head/Albedo.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
 
-            <div class="w3-container w3-col filterDiv  pyro w3-display-container"style="width:125px">
-            <a href="/character/amber.html"><img src="/img/character/head/Amber.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <div class="amber w3-container w3-col filterDiv  pyro w3-display-container"style="width:125px">
+            <a id="amber pyro" href="/character/amber.html"><img src="/img/character/head/Amber.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
 
             <div class="w3-container w3-col filterDiv  cryo w3-display-container"style="width:125px">
-            <a href="/character/ayaka.html"><img src="/img/character/head/Ayaka.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="ayaka cryo Kamisato" href="/character/ayaka.html"><img src="/img/character/head/Ayaka.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
 
             <div class="w3-container w3-col filterDiv cryo  w3-display-container"style="width:125px">
-            <a href="/character/aloy.html"><img src="/img/character/head/Aloy.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="aloy cryo" href="/character/aloy.html"><img src="/img/character/head/Aloy.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
 
             <!--b-->
             <div class="w3-container w3-col filterDiv hydro w3-display-container"style="width:125px">
-            <a href="/character/barbara.html"><img src="/img/character/head/Barbara.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="barbara hydro" href="/character/barbara.html"><img src="/img/character/head/Barbara.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv electro w3-display-container"style="width:125px">
-            <a href="/character/beidou.html"><img src="/img/character/head/Beidou.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="beidou electro" href="/character/beidou.html"><img src="/img/character/head/Beidou.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv pyro w3-display-container"style="width:125px">
-            <a href="/character/bennett.html"><img src="/img/character/head/Bennett.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="bennett pyro" href="/character/bennett.html"><img src="/img/character/head/Bennett.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--c-->
             <div class="w3-container w3-col filterDiv cryo w3-display-container"style="width:125px">
-            <a href="/character/chongyun.html"><img src="/img/character/head/Chongyun.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="chongyun cryo" href="/character/chongyun.html"><img src="/img/character/head/Chongyun.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--d-->
             <div class="w3-container w3-col filterDiv pyro w3-display-container"style="width:125px">
-            <a href="/character/diluc.html"><img src="/img/character/head/Diluc.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="diluc pyro" href="/character/diluc.html"><img src="/img/character/head/Diluc.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv cryo w3-display-container"style="width:125px">
-            <a href="/character/diona.html"><img src="/img/character/head/Diona.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="diona cryo catgirl" href="/character/diona.html"><img src="/img/character/head/Diona.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--e-->
             <div class="w3-container w3-col filterDiv cryo w3-display-container"style="width:125px">
-            <a href="/character/eula.html"><img src="/img/character/head/Eula.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="elua cryo" href="/character/eula.html"><img src="/img/character/head/Eula.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--f-->
             <div class="w3-container w3-col filterDiv electro w3-display-container"style="width:125px">
-            <a href="/character/fischl.html"><img src="/img/character/head/Fischl.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="fischl electro" href="/character/fischl.html"><img src="/img/character/head/Fischl.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
                
             <!--g-->
             <div class="w3-container w3-col filterDiv cryo w3-display-container"style="width:125px">
-            <a href="/character/ganyu.html"><img src="/img/character/head/Ganyu.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="ganyu cryo" href="/character/ganyu.html"><img src="/img/character/head/Ganyu.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--h-->
             <div class="w3-container w3-col filterDiv pyro w3-display-container"style="width:125px">
-            <a href="/character/hutao.html"><img src="/img/character/head/Hu Tao.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="hutao pyro" href="/character/hutao.html"><img src="/img/character/head/Hu Tao.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--i-->
@@ -177,46 +208,46 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
 
             <!--j-->
             <div class="w3-container w3-col filterDiv anemo w3-display-container"style="width:125px">
-            <a href="/character/jean.html"><img src="/img/character/head/Jean.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="jean anemo" href="/character/jean.html"><img src="/img/character/head/Jean.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--k-->
             <div class="w3-container w3-col filterDiv cryo w3-display-container"style="width:125px">
-            <a href="/character/kaeya.html"><img src="/img/character/head/Kaeya.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="kaeya cryo ikaeya Sangonomiya" href="/character/kaeya.html"><img src="/img/character/head/Kaeya.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv anemo w3-display-container"style="width:125px">
-            <a href="/character/kazuha.html"><img src="/img/character/head/Kazuha.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="Kaedehara kazuha anemo kazooha" href="/character/kazuha.html"><img src="/img/character/head/Kazuha.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv electro w3-display-container"style="width:125px">
-            <a href="/character/keqing.html"><img src="/img/character/head/Keqing.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="keqing electro" href="/character/keqing.html"><img src="/img/character/head/Keqing.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv pyro w3-display-container"style="width:125px">
-            <a href="/character/klee.html"><img src="/img/character/head/Klee.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="klee pyro" href="/character/klee.html"><img src="/img/character/head/Klee.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
 
             <div class="w3-container w3-col filterDiv hydro w3-display-container"style="width:125px">
-            <a href="/character/kokomi.html"><img src="/img/character/head/Kokomi.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="kokomi hydro" href="/character/kokomi.html"><img src="/img/character/head/Kokomi.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--l-->
             <div class="w3-container w3-col filterDiv electro w3-display-container"style="width:125px">
-            <a href="/character/lisa.html"><img src="/img/character/head/Lisa.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="lisa electro" href="/character/lisa.html"><img src="/img/character/head/Lisa.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--m-->
             <div class="w3-container w3-col filterDiv hydro w3-display-container"style="width:125px">
-            <a href="/character/mona.html"><img src="/img/character/head/Mona.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="mona hydro monalisa" href="/character/mona.html"><img src="/img/character/head/Mona.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--n-->
             <div class="w3-container w3-col filterDiv geo w3-display-container"style="width:125px">
-            <a href="/character/ningguang.html"><img src="/img/character/head/Ningguang.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="ningguang geo"href="/character/ningguang.html"><img src="/img/character/head/Ningguang.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv geo w3-display-container"style="width:125px">
-            <a href="/character/noelle.html"><img src="/img/character/head/Noelle.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="noelle geo" href="/character/noelle.html"><img src="/img/character/head/Noelle.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--o-->
@@ -227,49 +258,48 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
 
             <!--q-->
             <div class="w3-container w3-col filterDiv cryo w3-display-container"style="width:125px">
-            <a href="/character/qiqi.html"><img src="/img/character/head/Qiqi.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="qiqi cryo" href="/character/qiqi.html"><img src="/img/character/head/Qiqi.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--r-->
             <div class="w3-container w3-col filterDiv electro w3-display-container"style="width:125px">
-            <a href="/character/raiden.html"><img src="/img/character/head/Raiden.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="raiden shogun electro baal ei  " href="/character/raiden.html"><img src="/img/character/head/Raiden.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv electro w3-display-container"style="width:125px">
-            <a href="/character/razor.html"><img src="/img/character/head/Razor.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="razor electro wolf"href="/character/razor.html"><img src="/img/character/head/Razor.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv cryo w3-display-container"style="width:125px">
-            <a href="/character/rosaria.html"><img src="/img/character/head/Rosaria.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
-            
+            <a id="rosaria cryo" href="/character/rosaria.html"><img src="/img/character/head/Rosaria.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             <!--s-->
             <div class="w3-container w3-col filterDiv electro w3-display-container"style="width:125px">
-            <a href="/character/sara.html"><img src="/img/character/head/Sara.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="kujou sara electro" href="/character/sara.html"><img src="/img/character/head/Sara.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv anemo w3-display-container"style="width:125px">
-            <a href="/character/sayu.html"><img src="/img/character/head/Sayu.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="sayu anemo" href="/character/sayu.html"><img src="/img/character/head/Sayu.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv anemo w3-display-container"style="width:125px">
-            <a href="/character/sucrose.html"><img src="/img/character/head/Sucrose.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="sucrose anemo" href="/character/sucrose.html"><img src="/img/character/head/Sucrose.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--t-->
             <div class="w3-container w3-col filterDiv hydro w3-display-container"style="width:125px">
-            <a href="/character/tartaglia.html"><img src="/img/character/head/Tartaglia.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="tartaglia childe hydro" href="/character/tartaglia.html"><img src="/img/character/head/Tartaglia.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv anemo geo electro w3-display-container"style="width:125px">
-            <a href="/character/traveler.html"><img src="/img/character/head/Traveler.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="traveler aether lumine geo anemo electro" href="/character/traveler.html"><img src="/img/character/head/Traveler.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
 
             <!--u-->
             <!-- there is no character start with u-->
 
             <!--v-->
             <div class="w3-container w3-col filterDiv anemo w3-display-container"style="width:125px">
-            <a href="/character/venti.html"><img src="/img/character/head/Venti.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="venti anemo" href="/character/venti.html"><img src="/img/character/head/Venti.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--w-->
@@ -277,35 +307,42 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
 
             <!--x-->
             <div class="w3-container w3-col filterDiv pyro w3-display-container"style="width:125px">
-            <a href="/character/xiangling.html"><img src="/img/character/head/Xiangling.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="xiangling pyro" href="/character/xiangling.html"><img src="/img/character/head/Xiangling.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv anemo w3-display-container"style="width:125px">
-            <a href="/character/xiao.html"><img src="/img/character/head/Xiao.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="xiao anemo" href="/character/xiao.html"><img src="/img/character/head/Xiao.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv hydro w3-display-container"style="width:125px">
-            <a href="/character/xingqiu.html"><img src="/img/character/head/Xingqiu.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="xingqiu hydro" href="/character/xingqiu.html"><img src="/img/character/head/Xingqiu.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv pyro w3-display-container"style="width:125px">
-            <a href="/character/xinyan.html"><img src="/img/character/head/Xinyan.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="xinyan pyro" href="/character/xinyan.html"><img src="/img/character/head/Xinyan.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--y-->
             <div class="w3-container w3-col filterDiv pyro w3-display-container"style="width:125px">
-            <a href="/character/yanfei.html"><img src="/img/character/head/Yanfei.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="yanfei pyro" href="/character/yanfei.html"><img src="/img/character/head/Yanfei.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <div class="w3-container w3-col filterDiv pyro w3-display-container"style="width:125px">
-            <a href="/character/yoimiya.html"><img src="/img/character/head/Yoimiya.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="yoimiya pyro" href="/character/yoimiya.html"><img src="/img/character/head/Yoimiya.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
             
             <!--z-->
             <div class="w3-container w3-col filterDiv geo w3-display-container"style="width:125px">
-            <a href="/character/zhongli.html"><img src="/img/character/head/Zhongli.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <a id="zhongli geo" href="/character/zhongli.html"><img src="/img/character/head/Zhongli.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
-            
+            <div class="w3-container w3-col filterDiv geo w3-display-container"style="width:125px;display:none">
+            <a id="rin demon satan okumura" href="/a/rin.html" ><img src="/img/character/e/rin.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+    
+            <div class="w3-container w3-col filterDiv geo w3-display-container"style="width:125px;display:none">
+            <a id="shinra kusakabe demon devil" href="/a/shinra.html" ><img src="/img/character/e/Shinra.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+
+            <div class="w3-container w3-col filterDiv geo w3-display-container"style="display:none;text-decoration:none">
+            <a id="rin demon satan okumura shinra kusakabe demon devil" href="javascript:void(0)" style="text-decoration:none">search easter egg by one of our mod</a></div>
         </div>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
@@ -369,6 +406,23 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
 </div>
 </body>
   <script>
+      function myFunction() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("characterlist");
+  var li = ul.getElementsByTagName('div');
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.id;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
     // Accordion 
     function myAccFunc() {
       var x = document.getElementById("demoAcc");
