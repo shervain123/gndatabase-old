@@ -335,14 +335,14 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
             <div class="w3-container w3-col filterDiv geo w3-display-container"style="width:125px">
             <a id="zhongli geo" href="/character/zhongli.html"><img src="/img/character/head/Zhongli.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
             
-            <div class="w3-container w3-col filterDiv geo w3-display-container"style="width:125px;display:none">
-            <a id="rin demon satan okumura" href="/a/rin.html" ><img src="/img/character/e/rin.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <div class="w3-container w3-col filterDiv geo w3-display-container"style="width:125px;display:none" id="rin">
+            <a href="/a/rin.html" ><img src="/img/character/e/rin.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
     
-            <div class="w3-container w3-col filterDiv geo w3-display-container"style="width:125px;display:none">
-            <a id="shinra kusakabe demon devil" href="/a/shinra.html" ><img src="/img/character/e/Shinra.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
+            <div class="w3-container w3-col filterDiv geo w3-display-container"style="width:125px;display:none" id="shinra">
+            <a href="/a/shinra.html"><img src="/img/character/e/Shinra.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
 
-            <div class="w3-container w3-col filterDiv geo w3-display-container"style="display:none;text-decoration:none">
-            <a id="rin demon satan okumura shinra kusakabe demon devil" href="javascript:void(0)" style="text-decoration:none">search easter egg by one of our mod</a></div>
+            <div class="w3-container w3-col filterDiv geo w3-display-container"style="display:none;text-decoration:none" id="easter">
+            <a href="javascript:void(0)" style="text-decoration:none">search easter egg by one of our mod</a></div>
         </div>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
@@ -422,6 +422,32 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
       li[i].style.display = "none";
     }
   }
+  console.log(filter)
+  if(filter == "DEVIL" || filter == "DEMON"){
+  document.getElementById("rin").style.display = ""
+  document.getElementById("shinra").style.display = ""
+  document.getElementById("easter").style.display = ""
+  }else if(filter == "DEMON"){
+  document.getElementById("rin").style.display = ""
+  document.getElementById("shinra").style.display = ""
+  document.getElementById("easter").style.display = ""
+  }else if(filter == "SHINRA" || filter == "KUSAKABE" || filter == "SHINRA KUSAKABE"){
+  document.getElementById("rin").style.display = "none"
+  document.getElementById("shinra").style.display = ""
+  document.getElementById("easter").style.display = ""
+  }else if(filter == "RIN" || filter == "OKUMURA" || filter == "RIN OKUMURA"){
+  document.getElementById("rin").style.display = ""
+  document.getElementById("shinra").style.display = "none"
+  document.getElementById("easter").style.display = ""
+  }else if(filter == "SHINRARIN"){
+  document.getElementById("rin").style.display = ""
+  document.getElementById("shinra").style.display = ""
+  document.getElementById("easter").style.display = ""
+  }else{
+  document.getElementById("rin").style.display = "none"
+  document.getElementById("shinra").style.display = "none"
+  document.getElementById("easter").style.display = "none"
+  }
 }
     // Accordion 
     function myAccFunc() {
@@ -481,15 +507,5 @@ function w3RemoveClass(element, name) {
   element.className = arr1.join(" ");
 }
 
-// Add active class to the current control button (highlight it)
-var btnContainer = document.getElementById("myBtnContainer");
-var btns = btnContainer.getElementsByClassName("btn");
-for (var i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function() {
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    this.className += " active";
-  });
-}
     </script>
     
