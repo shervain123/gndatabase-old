@@ -13,9 +13,14 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
+    - name: Read file
+    - uses: juliangruber/read-file-action@v1.1.4
+      with:
+          path: ./time.txt
+    - name: Echo package.json
+      run: echo "${{ steps.package.outputs.content }}"
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
