@@ -4,10 +4,8 @@
 name: Genshin update
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  schedule:
+  - cron: "0 20 * * 1"
 
 jobs:
   build:
@@ -22,7 +20,7 @@ jobs:
     - name: Update time
       run: |
         python "time updater.py"
-    - name: Update resources
+    - name: Update time.txt on Github
       uses: test-room-7/action-update-file@v1
       with:
         file-path: time.txt
