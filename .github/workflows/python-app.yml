@@ -13,14 +13,15 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Downloading
+      uses: actions/checkout@v2
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
-    - name: Install pytz
-      run: |
-        sudo easy_install --upgrade pytz
+    - name: install pytz
+      run:  |
+        pip install pytz
     - name: Update time
       run: |
         python "time updater.py"
