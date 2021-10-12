@@ -15,10 +15,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.9
+    - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
     - name: Update time
       run: |
-        python "time updater.py" 10/12/2021
+        python "time updater.py"
+    - name: Update resources
+      uses: test-room-7/action-update-file@v1
+      with:
+        file-path: time.txt
+        commit-msg: Update resources
+        github-token: ${{ secrets.TOKEN }}
