@@ -27,4 +27,4 @@ jobs:
       with:
         file-path: time.txt
         commit-msg: Update resources
-        github-token: ${{ secrets.TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
