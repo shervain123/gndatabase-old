@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Read file
-    - uses: juliangruber/read-file-action@v1.1.4
+      uses: juliangruber/read-file-action@v1.1.4
       with:
           path: ./time.txt
     - name: Echo package.json
