@@ -1,8 +1,10 @@
 from datetime import datetime, timedelta, date
+from pytz import timezone
 ass = open("time.txt","r")
 arse = ass.read()
 x = arse[:arse.find(" ")]
 today = date.today()
+today = today.replace(tzinfo=timezone('UTC'))
 ass.close()
 print("\n\n\n\nTime get from git        : {}\nCurrent Time             : {}".format(x,today.strftime("%m/%d/%Y")))
 if(x == today.strftime("%m/%d/%Y")):
