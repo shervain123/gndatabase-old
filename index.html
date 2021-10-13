@@ -79,7 +79,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
   background-color: #eee;
 }
 </style>
-<body class="w3-black">
+<body class="w3-black" onload="gettime()">
 <div class="w3-black">
 <nav class="w3-sidebar w3-bar-block w3-black w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
     <div class="w3-container w3-display-container w3-padding-16">
@@ -154,7 +154,6 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
 
             <div class="w3-container w3-col filterDiv cryo  w3-display-container"style="width:125px">
             <a id="aloy cryo" href="/character/aloy.html"><img src="/img/character/head/Aloy.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
-            
 
             <!--b-->
             <div class="w3-container w3-col filterDiv hydro w3-display-container"style="width:125px">
@@ -196,7 +195,6 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
             <!--g-->
             <div class="w3-container w3-col filterDiv cryo w3-display-container"style="width:125px">
             <a id="ganyu cryo" href="/character/ganyu.html"><img src="/img/character/head/Ganyu.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
-            
             
             <!--h-->
             <div class="w3-container w3-col filterDiv pyro w3-display-container"style="width:125px">
@@ -344,8 +342,10 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
             <div class="w3-container w3-col filterDiv geo w3-display-container"style="display:none;text-decoration:none" id="easter">
             <a href="javascript:void(0)" style="text-decoration:none">search easter egg by one of our mod</a></div>
         </div>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <div class="w3-black w3-center w3-container" >
+          <h6 style="margin-top: 10px;">Time till next update</h6>
+          <h2 id="time">dd mm yyyy hh mm ss</h2>
+        </div>
     </div>
     <div class="w3-container" id="talent">
       <h2>Tools</h2>
@@ -449,15 +449,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
   document.getElementById("easter").style.display = "none"
   }
 }
-    // Accordion 
-    function myAccFunc() {
-      var x = document.getElementById("demoAcc");
-      if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-      } else {
-        x.className = x.className.replace(" w3-show", "");
-      }
-    }
+
     // Open and close sidebar
     function w3_open() {
       document.getElementById("mySidebar").style.display = "block";
@@ -506,6 +498,30 @@ function w3RemoveClass(element, name) {
   }
   element.className = arr1.join(" ");
 }
-
+var countDownDate 
+    function gettime() {
+      var rawFile = new XMLHttpRequest();
+      rawFile.open("GET", "https://gndatabase.ml/time.txt", true);
+      rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4) {
+          var allText = rawFile.responseText;
+          countDownDate = new Date(allText).getTime();
+        }
+    }
+    rawFile.send();
+    }
+    var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById("time").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("time").innerHTML = "EXPIRED";
+    }
+    }, 1000);
     </script>
     
