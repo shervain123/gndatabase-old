@@ -3,6 +3,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href='/js/functions.js' rel="preload" as="script">
+<link href='/js/character.js' rel="preload" as="script">
+<link href='/js/weapon.js' rel="preload" as="script">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Genshin Database" />
 <meta name="twitter:description" content="Get all kinds of information on a simple to use databse." />
@@ -48,45 +51,61 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
 .show {
   display: block;
 }
-#myInput {
+
+.hidea{
+    display:none;
+}
+.Input {
   background-position: 10px 12px;
   background-repeat: no-repeat;
-  width: 350px;
+  width: 300px;
   font-size: 16px;
   padding: 12px 20px 12px 30px;
-  border: 1px solid #ddd;
+  border: 1px solid #909090;
   margin-bottom: 12px;
 }
-
-#myUL {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+.alert {
+  padding: 11.5px;
+  background-color: #ff9800;
+  color: white;
 }
 
-#myUL li a {
-  border: 1px solid #ddd;
-  margin-top: -1px; /* Prevent double borders */
-  background-color: #f6f6f6;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px;
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
   color: black;
-  display: block
 }
-
-#myUL li a:hover:not(.header) {
-  background-color: #eee;
+.reset:hover{
+  background-color: red;
+}
+.reset{
+  background-color: #000000;
+  border:none;
+  padding: 8px 16px;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
 }
 </style>
-<body class="w3-black" onload="gettime()">
+<body class="w3-black" onload="gettime();loadsave()">
 <div class="w3-black">
 <nav class="w3-sidebar w3-bar-block w3-black w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
     <div class="w3-container w3-display-container w3-padding-16">
       <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
       <a href="/" style="text-decoration: none;"><h3 class="w3-wide"><b>Genshin database</b></h3></a>
     </div>
-    <div class="w3-padding-64 w3-large w3-text-grey" >
+
+    <div class="w3-padding-16 w3-large w3-text-grey" >
       <a href="#charcter" class="w3-button w3-block w3-black w3-left-align">
         Home
       </a>
@@ -109,7 +128,16 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
         Genshin Impact Map
       </a>
     </div>
-    <div class="w3-padding-64">
+    <div class="w3-padding-16" style="font-size: 14px;">
+      <a href="javascript:void(0)" onclick="document.getElementById('characterselector').style.display='block'" class="w3-button w3-block w3-black w3-left-align">
+        Select character
+      </a>
+      <a href="javascript:void(0)" onclick="document.getElementById('weaponselector').style.display='block'" class="w3-button w3-block w3-black w3-left-align">
+        Select Weapon
+      </a>
+      <a href="javascript:void(0)" onclick="document.getElementById('removeall').style.display='block'" class=" reset w3-block w3-left-align">
+        Remove All
+      </a>
       <a href="https://curiouscat.qa/sherx" class="w3-button w3-block w3-black w3-left-align">
         Feedback
       </a>
@@ -120,12 +148,53 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
   </header>
   <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-<div class="w3-hide-large w3-black" style="margin-bottom: 48px;">
+<div class="w3-hide-large w3-black" style="margin-bottom: 70px;">
     <p>oi you pull too much</p>
     
 </div>
  <!--main i guess-->
  <div class="w3-main w3-black" style="margin-left:250px">
+  <div id="teams" class="w3-display-container">
+    <div class="w3-black"><h2 style="margin-left:10px;">Ascension Materials</h2></div>
+    <div id="time" class=" w3-light-grey">
+      <div id="mondaymain" class="hidea">
+     <div class="w3-black"><h2 style="margin-left:10px;" id="mondaytitle">Monday</h2></div>
+        <div id="monday" style="margin-left:10px;min-height: 40px;">
+         <p id="mondayno" class="hidea">No ascension materials for today</p>
+         <p id="mondaymt" class="hidea">No items were selected</p>
+     </div>
+   </div>
+   <div id="tuesdaymain" class="hidea">
+        <div class="w3-black"><h2 style="margin-left:10px;" id="tuesdaytitle">Tuesday</h2></div>
+        <div id="tuesday" style="margin-left:10px;min-height: 40px;">
+         <p id="tuesdayno" class="hidea">No ascension materials for today</p>
+         <p id="tuesdaymt" class="hidea">No items were selected</p>
+        </div>
+        </div>
+        <div id="wednesdaymain" class="hidea">
+        <div class="w3-black"><h2 style="margin-left:10px;" id="wednesdaytitle">Wednesday</h2></div>
+        <div id="wednesday" style="margin-left:10px;min-height: 40px;">
+         <p id="wednesdayno" class="hidea">No ascension materials for today</p>
+         <p id="wednesdaymt" class="hidea">No items were selected</p>
+         </div>
+       </div>
+       <div id="sundaymain" class="hidea">
+        <div class="w3-black"><h2 style="margin-left:10px;">Sunday</h2></div>
+        <div id="sunday" style="margin-left:10px;min-height: 40px;">
+          <p id="sundayno" class="hidea">No ascension materials for today</p>
+         <p id="sundaymt" class="hidea">No items were selected</p>
+         </div>
+        </div>
+        <div class="alert hidea w3-display-topright w3-hide-small "id="nocha" style="width:500px;">
+          <span class="closebtn" onclick="this.parentElement.classList.add('hidea');">&times;</span> 
+          No items is selected, please select it from the side menu.
+        </div>
+        <div class="alert hidea w3-display-topmiddle w3-hide-large w3-hide-medium"id="nocha" style="width:90%">
+          <span class="closebtn" onclick="this.parentElement.classList.add('hidea');">&times;</span> 
+          No items is selected, please select it from the side menu.
+        </div>
+    </div>
+  </div>
     <div class="w3-light-grey" id="character">
       <h2 class="w3-black" >&nbsp;&nbsp;Character list</h2>
       <div class="w3-light-grey" style="margin-left:10px">
@@ -136,7 +205,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
         <button class="w3-button w3-black" onclick="filterSelection('geo')"><img src="/img/items/element/geo.png" style="width:22.5px"></button>
         <button class="w3-button w3-black" onclick="filterSelection('hydro')"><img src="/img/items/element/hydro.png" style="width:22.5px"></button>
         <button class="w3-button w3-black" onclick="filterSelection('pyro')"><img src="/img/items/element/pyro.png" style="width:22.5px"></button>
-        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by name or element..." title="Type in a name">
+        <input type="text" id="myInput" onkeyup="myFunction()" class="Input" placeholder="Search by name or element..." title="Type in a name">
       </div>
         <div class="w3-row w3-light-grey" style="margin-top:10px" id="characterlist">
           
@@ -195,7 +264,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
             <!--g-->
             <div class="w3-container w3-col filterDiv cryo w3-display-container"style="width:125px">
             <a id="ganyu cryo" href="/character/ganyu.html"><img src="/img/character/head/Ganyu.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
-            
+
             <!--h-->
             <div class="w3-container w3-col filterDiv pyro w3-display-container"style="width:125px">
             <a id="hutao pyro" href="/character/hutao.html"><img src="/img/character/head/Hu Tao.png" style="width:100%; margin:5px 0px 5px 0px;" class="w3-hover-opacity"></a></div>
@@ -344,7 +413,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
         </div>
         <div class="w3-black w3-center w3-container" >
           <h6 style="margin-top: 10px;">Time till next update (UTC)</h6>
-          <h2 id="time">dd mm yyyy hh mm ss</h2>
+          <h2 id="updatetime">dd mm yyyy hh mm ss</h2>
         </div>
     </div>
     <div class="w3-container" id="talent">
@@ -404,6 +473,218 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
     </footer>
 </div>
 </div>
+<div id="characterselector" class="w3-modal" >
+  <div class="w3-modal-content" style="padding:16px;width:90%">
+    <div class=" w3-white w3-center">
+      <i onclick="document.getElementById('characterselector').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent"></i>
+      <h3>Select Character</h3>
+      <div>
+        <button class="w3-button w3-black" onclick="filterSelections('all')">All</button>
+        <button class="w3-button w3-black" onclick="filterSelections('anemo')"><img src="/img/items/element/anemo.png" style="width:22.5px"></button>
+        <button class="w3-button w3-black" onclick="filterSelections('cryo')"><img src="/img/items/element/cryo.png" style="width:22.5px"></button>
+        <button class="w3-button w3-black" onclick="filterSelections('electro')"><img src="/img/items/element/electro.png" style="width:22.5px"></button>
+        <button class="w3-button w3-black" onclick="filterSelections('geo')"><img src="/img/items/element/geo.png" style="width:22.5px"></button>
+        <button class="w3-button w3-black" onclick="filterSelections('hydro')"><img src="/img/items/element/hydro.png" style="width:22.5px"></button>
+        <button class="w3-button w3-black" onclick="filterSelections('pyro')"><img src="/img/items/element/pyro.png" style="width:22.5px"></button>
+        <input type="text" class="Input" id="characterinput" onkeyup="search('characterss','characterinput')" placeholder="Search by name or element..." title="Type in a name">
+      </div>
+      <div id="characterss" class="w3-row">
+          <div class="w3-display-container w3-col" id="albedo" style="width:auto"><img src="/img/character/head/Albedo.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg geo" onclick="selectcha('albedo')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity  geo filterImg" onclick="selectcha('albedo')"></div>
+          <div class="w3-display-container w3-col" id="aloy" style="width:auto"><img src="/img/character/head/Aloy.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg cryo" onclick="selectcha('aloy')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity  filterImg cryo" onclick="selectcha('aloy')"></div>
+          <div class="w3-display-container w3-col" id="amber" style="width:auto"><img src="/img/character/head/Amber.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg pyro" onclick="selectcha('amber')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg pyro" onclick="selectcha('amber')"></div>
+          <div class="w3-display-container w3-col" id="ayaka" style="width:auto"><img src="/img/character/head/Ayaka.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg cryo" onclick="selectcha('ayaka')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg filterImg cryo" onclick="selectcha('ayaka')"></div>
+          <div class="w3-display-container w3-col" id="barbara" style="width:auto"><img src="/img/character/head/Barbara.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg hydro" onclick="selectcha('barbara')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg hydro" onclick="selectcha('barbara')"></div>
+          <div class="w3-display-container w3-col" id="beidou" style="width:auto"><img src="/img/character/head/Beidou.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg electro" onclick="selectcha('beidou')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg electro" onclick="selectcha('beidou')"></div>
+          <div class="w3-display-container w3-col" id="bennett" style="width:auto"><img src="/img/character/head/Bennett.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg pyro" onclick="selectcha('bennett')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg pyro" onclick="selectcha('bennett')"></div>
+          <div class="w3-display-container w3-col" id="chongyun" style="width:auto"><img src="/img/character/head/Chongyun.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg cryo" onclick="selectcha('chongyun')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg cryo" onclick="selectcha('chongyun')"></div>
+          <div class="w3-display-container w3-col" id="diluc" style="width:auto"><img src="/img/character/head/Diluc.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg pyro" onclick="selectcha('diluc')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg pyro" onclick="selectcha('diluc')"></div>
+          <div class="w3-display-container w3-col" id="diona" style="width:auto"><img src="/img/character/head/Diona.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg cryo" onclick="selectcha('diona')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg cryo" onclick="selectcha('diona')"></div>
+          <div class="w3-display-container w3-col" id="eula" style="width:auto"><img src="/img/character/head/Eula.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg cryo" onclick="selectcha('eula')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg cryo" onclick="selectcha('eula')"></div>
+          <div class="w3-display-container w3-col" id="fischl" style="width:auto"><img src="/img/character/head/Fischl.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg electro" onclick="selectcha('fischl')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg electro" onclick="selectcha('fischl')"></div>
+          <div class="w3-display-container w3-col" id="ganyu" style="width:auto"><img src="/img/character/head/Ganyu.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg cryo" onclick="selectcha('ganyu')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg cryo" onclick="selectcha('ganyu')"></div>
+          <div class="w3-display-container w3-col" id="hu tao" style="width:auto"><img src="/img/character/head/Hu Tao.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg pyro" onclick="selectcha('hu tao')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg pyro" onclick="selectcha('hu tao')"></div>
+          <div class="w3-display-container w3-col" id="jean" style="width:auto"><img src="/img/character/head/Jean.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg anemo" onclick="selectcha('jean')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg anemo" onclick="selectcha('jean')"></div>
+          <div class="w3-display-container w3-col" id="kaeya" style="width:auto"><img src="/img/character/head/Kaeya.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg cryo" onclick="selectcha('kaeya')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg cryo" onclick="selectcha('kaeya')"></div>
+          <div class="w3-display-container w3-col" id="kazuha" style="width:auto"><img src="/img/character/head/Kazuha.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg anemo" onclick="selectcha('kazuha')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg anemo" onclick="selectcha('kazuha')"></div>
+          <div class="w3-display-container w3-col" id="keqing" style="width:auto"><img src="/img/character/head/Keqing.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg electro" onclick="selectcha('keqing')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg electro" onclick="selectcha('keqing')"></div>
+          <div class="w3-display-container w3-col" id="klee" style="width:auto"><img src="/img/character/head/Klee.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg pyro" onclick="selectcha('klee')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg pyro" onclick="selectcha('klee')"></div>
+          <div class="w3-display-container w3-col" id="kokomi" style="width:auto"><img src="/img/character/head/Kokomi.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg hydro" onclick="selectcha('kokomi')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg hydro" onclick="selectcha('kokomi')"></div>
+          <div class="w3-display-container w3-col" id="lisa" style="width:auto"><img src="/img/character/head/Lisa.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg electro" onclick="selectcha('lisa')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg electro" onclick="selectcha('lisa')"></div>
+          <div class="w3-display-container w3-col" id="mona" style="width:auto"><img src="/img/character/head/Mona.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg hydro" onclick="selectcha('mona')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg hydro" onclick="selectcha('mona')"></div>
+          <div class="w3-display-container w3-col" id="ningguang" style="width:auto"><img src="/img/character/head/Ningguang.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg geo" onclick="selectcha('ningguang')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg geo" onclick="selectcha('ningguang')"></div>
+          <div class="w3-display-container w3-col" id="noelle" style="width:auto"><img src="/img/character/head/Noelle.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg geo" onclick="selectcha('noelle')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg geo" onclick="selectcha('noelle')"></div>
+          <div class="w3-display-container w3-col" id="qiqi" style="width:auto"><img src="/img/character/head/Qiqi.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg cryo" onclick="selectcha('qiqi')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg cryo" onclick="selectcha('qiqi')"></div>
+          <div class="w3-display-container w3-col" id="raiden" style="width:auto"><img src="/img/character/head/Raiden.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg electro" onclick="selectcha('raiden')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg electro" onclick="selectcha('raiden')"></div>
+          <div class="w3-display-container w3-col" id="razor" style="width:auto"><img src="/img/character/head/Razor.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg electro" onclick="selectcha('razor')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg electro" onclick="selectcha('razor')"></div>
+          <div class="w3-display-container w3-col" id="rosaria" style="width:auto"><img src="/img/character/head/Rosaria.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg cryo" onclick="selectcha('rosaria')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg cryo" onclick="selectcha('rosaria')"></div>
+          <div class="w3-display-container w3-col" id="sara" style="width:auto"><img src="/img/character/head/Sara.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg electro" onclick="selectcha('sara')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg filterImg electro" onclick="selectcha('sara')"></div>
+          <div class="w3-display-container w3-col" id="sayu" style="width:auto"><img src="/img/character/head/Sayu.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg anemo" onclick="selectcha('sayu')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg anemo" onclick="selectcha('sayu')"></div>
+          <div class="w3-display-container w3-col" id="sucrose" style="width:auto"><img src="/img/character/head/Sucrose.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg anemo" onclick="selectcha('sucrose')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg anemo" onclick="selectcha('sucrose')"></div>
+          <div class="w3-display-container w3-col" id="tartaglia" style="width:auto"><img src="/img/character/head/Tartaglia.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg hydro" onclick="selectcha('tartaglia')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg hydro" onclick="selectcha('tartaglia')"></div>
+          <div class="w3-display-container w3-col" id="traveler" style="width:auto"><img src="/img/character/head/Traveler.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg anemo geo electro" onclick="selectcha('traveler')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg anemo electro geo" onclick="selectcha('traveler')"></div>
+          <div class="w3-display-container w3-col" id="venti" style="width:auto"><img src="/img/character/head/Venti.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg anemo" onclick="selectcha('venti')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg anemo" onclick="selectcha('venti')"></div>
+          <div class="w3-display-container w3-col" id="xiangling" style="width:auto"><img src="/img/character/head/Xiangling.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg pyro" onclick="selectcha('xiangling')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg pyro" onclick="selectcha('xiangling')"></div>
+          <div class="w3-display-container w3-col" id="xiao" style="width:auto"><img src="/img/character/head/Xiao.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg anemo" onclick="selectcha('xiao')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg anemo" onclick="selectcha('xiao')"></div>
+          <div class="w3-display-container w3-col" id="xingqiu" style="width:auto"><img src="/img/character/head/Xingqiu.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity  filterImg hydro" onclick="selectcha('xingqiu')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg hydro" onclick="selectcha('xingqiu')"></div>
+          <div class="w3-display-container w3-col" id="xinyan" style="width:auto"><img src="/img/character/head/Xinyan.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg pyro" onclick="selectcha('xinyan')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg pyro" onclick="selectcha('xinyan')"></div>
+          <div class="w3-display-container w3-col" id="yanfei" style="width:auto"><img src="/img/character/head/Yanfei.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg pyro" onclick="selectcha('yanfei')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg pyro" onclick="selectcha('yanfei')"></div>
+          <div class="w3-display-container w3-col" id="yoimiya" style="width:auto"><img src="/img/character/head/Yoimiya.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg pyro" onclick="selectcha('yoimiya')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg pyro" onclick="selectcha('yoimiya')"></div>
+          <div class="w3-display-container w3-col" id="zhongli" style="width:auto"><img src="/img/character/head/Zhongli.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity filterImg geo" onclick="selectcha('zhongli')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity filterImg geo" onclick="selectcha('zhongli')"></div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<div id="weaponselector" class="w3-modal">
+  <div class="w3-modal-content" style="padding:10px;width:90%">
+    <div class=" w3-white w3-center" >
+      <i onclick="document.getElementById('weaponselector').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent"></i>
+      <h3>Select Weapon</h3>
+      <div>
+        <input type="text" class="Input" id="weaponinput" onkeyup="search('weaponss','weaponinput')" placeholder="Search by name or element..." title="Type in a name" style="width: 50%;">
+      </div>
+      <div id="weaponss" class="w3-container w3-center">
+        <div class="w3-display-container w3-col " id="AlleyHunter" style="width:auto"><img src="/img/items/weapeon/all/AlleyHunter.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('AlleyHunter')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('AlleyHunter')"></div>
+        <div class="w3-display-container w3-col" id="AmenomaKageuchi" style="width:auto"><img src="/img/items/weapeon/all/AmenomaKageuchi.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('AmenomaKageuchi')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('AmenomaKageuchi')"></div>
+        <div class="w3-display-container w3-col" id="AmosBow" style="width:auto"><img src="/img/items/weapeon/all/AmosBow.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('AmosBow')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('AmosBow')"></div>
+        <div class="w3-display-container w3-col" id="ApprenticeNotes" style="width:auto"><img src="/img/items/weapeon/all/ApprenticeNotes.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('ApprenticeNotes')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('ApprenticeNotes')"></div>
+        <div class="w3-display-container w3-col" id="AquilaFavonia" style="width:auto"><img src="/img/items/weapeon/all/AquilaFavonia.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('AquilaFavonia')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('AquilaFavonia')"></div>
+        <div class="w3-display-container w3-col" id="BeginnerProtector" style="width:auto"><img src="/img/items/weapeon/all/BeginnerProtector.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('BeginnerProtector')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('BeginnerProtector')"></div>
+        <div class="w3-display-container w3-col" id="BlackcliffAgate" style="width:auto"><img src="/img/items/weapeon/all/BlackcliffAgate.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('BlackcliffAgate')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('BlackcliffAgate')"></div>
+        <div class="w3-display-container w3-col" id="BlackcliffLongsword" style="width:auto"><img src="/img/items/weapeon/all/BlackcliffLongsword.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('BlackcliffLongsword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('BlackcliffLongsword')"></div>
+        <div class="w3-display-container w3-col" id="BlackcliffPole" style="width:auto"><img src="/img/items/weapeon/all/BlackcliffPole.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('BlackcliffPole')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('BlackcliffPole')"></div>
+        <div class="w3-display-container w3-col" id="BlackcliffSlasher" style="width:auto"><img src="/img/items/weapeon/all/BlackcliffSlasher.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('BlackcliffSlasher')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('BlackcliffSlasher')"></div>
+        <div class="w3-display-container w3-col" id="BlackcliffWarbow" style="width:auto"><img src="/img/items/weapeon/all/BlackcliffWarbow.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('BlackcliffWarbow')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('BlackcliffWarbow')"></div>
+        <div class="w3-display-container w3-col" id="BlackTassel" style="width:auto"><img src="/img/items/weapeon/all/BlackTassel.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('BlackTassel')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('BlackTassel')"></div>
+        <div class="w3-display-container w3-col" id="BloodtaintedGreatsword" style="width:auto"><img src="/img/items/weapeon/all/BloodtaintedGreatsword.png" style="width:100px;margin-top:10px;margin-left:5px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('BloodtaintedGreatsword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('BloodtaintedGreatsword')"></div>
+        <div class="w3-display-container w3-col" id="CompoundBow" style="width:auto"><img src="/img/items/weapeon/all/CompoundBow.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('CompoundBow')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('CompoundBow')"></div>
+        <div class="w3-display-container w3-col" id="CoolSteel" style="width:auto"><img src="/img/items/weapeon/all/CoolSteel.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('CoolSteel')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('CoolSteel')"></div>
+        <div class="w3-display-container w3-col" id="CrescentPike" style="width:auto"><img src="/img/items/weapeon/all/CrescentPike.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('CrescentPike')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('CrescentPike')"></div>
+        <div class="w3-display-container w3-col" id="DarkIronSword" style="width:auto"><img src="/img/items/weapeon/all/DarkIronSword.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('DarkIronSword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('DarkIronSword')"></div>
+        <div class="w3-display-container w3-col" id="Deathmatch" style="width:auto"><img src="/img/items/weapeon/all/Deathmatch.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('Deathmatch')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('Deathmatch')"></div>
+        <div class="w3-display-container w3-col" id="DebateClub" style="width:auto"><img src="/img/items/weapeon/all/DebateClub.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('DebateClub')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('DebateClub')"></div>
+        <div class="w3-display-container w3-col" id="DodocoTales" style="width:auto"><img src="/img/items/weapeon/all/DodocoTales.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('DodocoTales')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('DodocoTales')"></div>
+        <div class="w3-display-container w3-col" id="DragonBane" style="width:auto"><img src="/img/items/weapeon/all/DragonBane.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('DragonBane')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('DragonBane')"></div>
+        <div class="w3-display-container w3-col" id="DragonspineSpear" style="width:auto"><img src="/img/items/weapeon/all/DragonspineSpear.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('DragonspineSpear')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('DragonspineSpear')"></div>
+        <div class="w3-display-container w3-col" id="DullBlade" style="width:auto"><img src="/img/items/weapeon/all/DullBlade.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('DullBlade')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('DullBlade')"></div>
+        <div class="w3-display-container w3-col" id="EbonyBow" style="width:auto"><img src="/img/items/weapeon/all/EbonyBow.png" style="margin-top:10px;height: 100px;margin-left: 5px;" class="w3-hover-opacity " onclick="selectweapon('EbonyBow')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('EbonyBow')"></div>
+        <div class="w3-display-container w3-col" id="ElegyfortheEnd" style="width:auto"><img src="/img/items/weapeon/all/ElegyfortheEnd.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('ElegyfortheEnd')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('ElegyfortheEnd')"></div>
+        <div class="w3-display-container w3-col" id="EmeraldOrb" style="width:auto"><img src="/img/items/weapeon/all/EmeraldOrb.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('EmeraldOrb')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('EmeraldOrb')"></div>
+        <div class="w3-display-container w3-col" id="EngulfingLightning" style="width:auto"><img src="/img/items/weapeon/all/EngulfingLightning.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('EngulfingLightning')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('EngulfingLightning')"></div>
+        <div class="w3-display-container w3-col" id="EverlastingMoonglow" style="width:auto"><img src="/img/items/weapeon/all/EverlastingMoonglow.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('EverlastingMoonglow')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('EverlastingMoonglow')"></div>
+        <div class="w3-display-container w3-col" id="EyeofPerception" style="width:auto"><img src="/img/items/weapeon/all/EyeofPerception.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('EyeofPerception')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('EyeofPerception')"></div>
+        <div class="w3-display-container w3-col" id="FavoniusCodex" style="width:auto"><img src="/img/items/weapeon/all/FavoniusCodex.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('FavoniusCodex')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('FavoniusCodex')"></div>
+        <div class="w3-display-container w3-col" id="FavoniusGreatsword" style="width:auto"><img src="/img/items/weapeon/all/FavoniusGreatsword.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('FavoniusGreatsword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('FavoniusGreatsword')"></div>
+        <div class="w3-display-container w3-col" id="FavoniusLance" style="width:auto"><img src="/img/items/weapeon/all/FavoniusLance.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('FavoniusLance')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('FavoniusLance')"></div>
+        <div class="w3-display-container w3-col" id="FavoniusSword" style="width:auto"><img src="/img/items/weapeon/all/FavoniusSword.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('FavoniusSword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('FavoniusSword')"></div>
+        <div class="w3-display-container w3-col" id="FavoniusWarbow" style="width:auto"><img src="/img/items/weapeon/all/FavoniusWarbow.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('FavoniusWarbow')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('FavoniusWarbow')"></div>
+        <div class="w3-display-container w3-col" id="FerrousShadow" style="width:auto"><img src="/img/items/weapeon/all/FerrousShadow.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('FerrousShadow')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('FerrousShadow')"></div>
+        <div class="w3-display-container w3-col" id="FesteringDesire" style="width:auto"><img src="/img/items/weapeon/all/FesteringDesire.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('FesteringDesire')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('FesteringDesire')"></div>
+        <div class="w3-display-container w3-col" id="FilletBlade" style="width:auto"><img src="/img/items/weapeon/all/FilletBlade.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('FilletBlade')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('FilletBlade')"></div>
+        <div class="w3-display-container w3-col" id="FreedomSworn" style="width:auto"><img src="/img/items/weapeon/all/FreedomSworn.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('FreedomSworn')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('FreedomSworn')"></div>
+        <div class="w3-display-container w3-col" id="Frostbearer" style="width:auto"><img src="/img/items/weapeon/all/Frostbearer.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('Frostbearer')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('Frostbearer')"></div>
+        <div class="w3-display-container w3-col" id="HakushinRing" style="width:auto"><img src="/img/items/weapeon/all/HakushinRing.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('HakushinRing')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('HakushinRing')"></div>
+        <div class="w3-display-container w3-col" id="Halberd" style="width:auto"><img src="/img/items/weapeon/all/Halberd.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('Halberd')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('Halberd')"></div>
+        <div class="w3-display-container w3-col" id="Hamayumi" style="width:auto"><img src="/img/items/weapeon/all/Hamayumi.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('Hamayumi')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('Hamayumi')"></div>
+        <div class="w3-display-container w3-col" id="HarbingerofDawn" style="width:auto"><img src="/img/items/weapeon/all/HarbingerofDawn.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('HarbingerofDawn')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('HarbingerofDawn')"></div>
+        <div class="w3-display-container w3-col" id="HunterBow" style="width:auto"><img src="/img/items/weapeon/all/HunterBow.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('HunterBow')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('HunterBow')"></div>
+        <div class="w3-display-container w3-col" id="IronPoint" style="width:auto"><img src="/img/items/weapeon/all/IronPoint.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('IronPoint')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('IronPoint')"></div>
+        <div class="w3-display-container w3-col" id="IronSting" style="width:auto"><img src="/img/items/weapeon/all/IronSting.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('IronSting')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('IronSting')"></div>
+        <div class="w3-display-container w3-col" id="KatsuragikiriNagamasa" style="width:auto"><img src="/img/items/weapeon/all/KatsuragikiriNagamasa.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('KatsuragikiriNagamasa')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('KatsuragikiriNagamasa')"></div>
+        <div class="w3-display-container w3-col" id="KitainCrossSpear" style="width:auto"><img src="/img/items/weapeon/all/KitainCrossSpear.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('KitainCrossSpear')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('KitainCrossSpear')"></div>
+        <div class="w3-display-container w3-col" id="LionRoar" style="width:auto"><img src="/img/items/weapeon/all/LionRoar.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('LionRoar')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('LionRoar')"></div>
+        <div class="w3-display-container w3-col" id="LithicBlade" style="width:auto"><img src="/img/items/weapeon/all/LithicBlade.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('LithicBlade')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('LithicBlade')"></div>
+        <div class="w3-display-container w3-col" id="LithicSpear" style="width:auto"><img src="/img/items/weapeon/all/LithicSpear.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('LithicSpear')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('LithicSpear')"></div>
+        <div class="w3-display-container w3-col" id="LostPrayertotheSacredWinds" style="width:auto"><img src="/img/items/weapeon/all/LostPrayertotheSacredWinds.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('LostPrayertotheSacredWinds')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('LostPrayertotheSacredWinds')"></div>
+        <div class="w3-display-container w3-col" id="LuxuriousSeaLord" style="width:auto"><img src="/img/items/weapeon/all/LuxuriousSeaLord.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('LuxuriousSeaLord')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('LuxuriousSeaLord')"></div>
+        <div class="w3-display-container w3-col" id="MagicGuide" style="width:auto"><img src="/img/items/weapeon/all/MagicGuide.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('MagicGuide')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('MagicGuide')"></div>
+        <div class="w3-display-container w3-col" id="MappaMare" style="width:auto"><img src="/img/items/weapeon/all/MappaMare.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('MappaMare')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('MappaMare')"></div>
+        <div class="w3-display-container w3-col" id="MemoryofDust" style="width:auto"><img src="/img/items/weapeon/all/MemoryofDust.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('MemoryofDust')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('MemoryofDust')"></div>
+        <div class="w3-display-container w3-col" id="Messenger" style="width:auto"><img src="/img/items/weapeon/all/Messenger.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('Messenger')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('Messenger')"></div>
+        <div class="w3-display-container w3-col" id="MistsplitterReforged" style="width:auto"><img src="/img/items/weapeon/all/MistsplitterReforged.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('MistsplitterReforged')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('MistsplitterReforged')"></div>
+        <div class="w3-display-container w3-col" id="MitternachtsWaltz" style="width:auto"><img src="/img/items/weapeon/all/MitternachtsWaltz.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('MitternachtsWaltz')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('MitternachtsWaltz')"></div>
+        <div class="w3-display-container w3-col" id="OldMercPal" style="width:auto"><img src="/img/items/weapeon/all/OldMercPal.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('OldMercPal')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('OldMercPal')"></div>
+        <div class="w3-display-container w3-col" id="OtherworldlyStory" style="width:auto"><img src="/img/items/weapeon/all/OtherworldlyStory.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('OtherworldlyStory')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('OtherworldlyStory')"></div>
+        <div class="w3-display-container w3-col" id="PocketGrimoire" style="width:auto"><img src="/img/items/weapeon/all/PocketGrimoire.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('PocketGrimoire')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('PocketGrimoire')"></div>
+        <div class="w3-display-container w3-col" id="Predator" style="width:auto"><img src="/img/items/weapeon/all/Predator.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('Predator')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('Predator')"></div>
+        <div class="w3-display-container w3-col" id="PrimordialJadeCutter" style="width:auto"><img src="/img/items/weapeon/all/PrimordialJadeCutter.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('PrimordialJadeCutter')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('PrimordialJadeCutter')"></div>
+        <div class="w3-display-container w3-col" id="PrimordialJadeWingedSpear" style="width:auto"><img src="/img/items/weapeon/all/PrimordialJadeWingedSpear.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('PrimordialJadeWingedSpear')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('PrimordialJadeWingedSpear')"></div>
+        <div class="w3-display-container w3-col" id="PrototypeAmber" style="width:auto"><img src="/img/items/weapeon/all/PrototypeAmber.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('PrototypeAmber')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('PrototypeAmber')"></div>
+        <div class="w3-display-container w3-col" id="PrototypeArchaic" style="width:auto"><img src="/img/items/weapeon/all/PrototypeArchaic.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('PrototypeArchaic')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('PrototypeArchaic')"></div>
+        <div class="w3-display-container w3-col" id="PrototypeCrescent" style="width:auto"><img src="/img/items/weapeon/all/PrototypeCrescent.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('PrototypeCrescent')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('PrototypeCrescent')"></div>
+        <div class="w3-display-container w3-col" id="PrototypeRancour" style="width:auto"><img src="/img/items/weapeon/all/PrototypeRancour.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('PrototypeRancour')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('PrototypeRancour')"></div>
+        <div class="w3-display-container w3-col" id="PrototypeStarglitter" style="width:auto"><img src="/img/items/weapeon/all/PrototypeStarglitter.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('PrototypeStarglitter')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('PrototypeStarglitter')"></div>
+        <div class="w3-display-container w3-col" id="Rainslasher" style="width:auto"><img src="/img/items/weapeon/all/Rainslasher.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('Rainslasher')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('Rainslasher')"></div>
+        <div class="w3-display-container w3-col" id="RavenBow" style="width:auto"><img src="/img/items/weapeon/all/RavenBow.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('RavenBow')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('RavenBow')"></div>
+        <div class="w3-display-container w3-col" id="RecurveBow" style="width:auto"><img src="/img/items/weapeon/all/RecurveBow.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('RecurveBow')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('RecurveBow')"></div>
+        <div class="w3-display-container w3-col" id="RoyalBow" style="width:auto"><img src="/img/items/weapeon/all/RoyalBow.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('RoyalBow')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('RoyalBow')"></div>
+        <div class="w3-display-container w3-col" id="RoyalGreatsword" style="width:auto"><img src="/img/items/weapeon/all/RoyalGreatsword.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('RoyalGreatsword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('RoyalGreatsword')"></div>
+        <div class="w3-display-container w3-col" id="RoyalGrimoire" style="width:auto"><img src="/img/items/weapeon/all/RoyalGrimoire.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('RoyalGrimoire')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('RoyalGrimoire')"></div>
+        <div class="w3-display-container w3-col" id="RoyalLongsword" style="width:auto"><img src="/img/items/weapeon/all/RoyalLongsword.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('RoyalLongsword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('RoyalLongsword')"></div>
+        <div class="w3-display-container w3-col" id="RoyalSpear" style="width:auto"><img src="/img/items/weapeon/all/RoyalSpear.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('RoyalSpear')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('RoyalSpear')"></div>
+        <div class="w3-display-container w3-col" id="Rust" style="width:auto"><img src="/img/items/weapeon/all/Rust.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('Rust')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('Rust')"></div>
+        <div class="w3-display-container w3-col" id="SacrificialBow" style="width:auto"><img src="/img/items/weapeon/all/SacrificialBow.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SacrificialBow')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SacrificialBow')"></div>
+        <div class="w3-display-container w3-col" id="SacrificialFragments" style="width:auto"><img src="/img/items/weapeon/all/SacrificialFragments.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SacrificialFragments')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SacrificialFragments')"></div>
+        <div class="w3-display-container w3-col" id="SacrificialGreatsword" style="width:auto"><img src="/img/items/weapeon/all/SacrificialGreatsword.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SacrificialGreatsword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SacrificialGreatsword')"></div>
+        <div class="w3-display-container w3-col" id="SacrificialSword" style="width:auto"><img src="/img/items/weapeon/all/SacrificialSword.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SacrificialSword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SacrificialSword')"></div>
+        <div class="w3-display-container w3-col" id="SeasonedHunterBow" style="width:auto"><img src="/img/items/weapeon/all/SeasonedHunterBow.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SeasonedHunterBow')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SeasonedHunterBow')"></div>
+        <div class="w3-display-container w3-col" id="SerpentSpine" style="width:auto"><img src="/img/items/weapeon/all/SerpentSpine.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SerpentSpine')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SerpentSpine')"></div>
+        <div class="w3-display-container w3-col" id="SharpshooterOath" style="width:auto"><img src="/img/items/weapeon/all/SharpshooterOath.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SharpshooterOath')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SharpshooterOath')"></div>
+        <div class="w3-display-container w3-col" id="SilverSword" style="width:auto"><img src="/img/items/weapeon/all/SilverSword.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SilverSword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SilverSword')"></div>
+        <div class="w3-display-container w3-col" id="SkyriderGreatsword" style="width:auto"><img src="/img/items/weapeon/all/SkyriderGreatsword.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SkyriderGreatsword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SkyriderGreatsword')"></div>
+        <div class="w3-display-container w3-col" id="SkyriderSword" style="width:auto"><img src="/img/items/weapeon/all/SkyriderSword.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SkyriderSword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SkyriderSword')"></div>
+        <div class="w3-display-container w3-col" id="SkywardAtlas" style="width:auto"><img src="/img/items/weapeon/all/SkywardAtlas.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SkywardAtlas')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SkywardAtlas')"></div>
+        <div class="w3-display-container w3-col" id="SkywardBlade" style="width:auto"><img src="/img/items/weapeon/all/SkywardBlade.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SkywardBlade')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SkywardBlade')"></div>
+        <div class="w3-display-container w3-col" id="SkywardHarp" style="width:auto"><img src="/img/items/weapeon/all/SkywardHarp.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SkywardHarp')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SkywardHarp')"></div>
+        <div class="w3-display-container w3-col" id="SkywardPride" style="width:auto"><img src="/img/items/weapeon/all/SkywardPride.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SkywardPride')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SkywardPride')"></div>
+        <div class="w3-display-container w3-col" id="SkywardSpine" style="width:auto"><img src="/img/items/weapeon/all/SkywardSpine.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SkywardSpine')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SkywardSpine')"></div>
+        <div class="w3-display-container w3-col" id="Slingshot" style="width:auto"><img src="/img/items/weapeon/all/Slingshot.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('Slingshot')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('Slingshot')"></div>
+        <div class="w3-display-container w3-col" id="SnowTombedStarsilver" style="width:auto"><img src="/img/items/weapeon/all/SnowTombedStarsilver.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SnowTombedStarsilver')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SnowTombedStarsilver')"></div>
+        <div class="w3-display-container w3-col" id="SolarPearl" style="width:auto"><img src="/img/items/weapeon/all/SolarPearl.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SolarPearl')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SolarPearl')"></div>
+        <div class="w3-display-container w3-col" id="SongofBrokenPines" style="width:auto"><img src="/img/items/weapeon/all/SongofBrokenPines.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SongofBrokenPines')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SongofBrokenPines')"></div>
+        <div class="w3-display-container w3-col" id="StaffofHoma" style="width:auto"><img src="/img/items/weapeon/all/StaffofHoma.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('StaffofHoma')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('StaffofHoma')"></div>
+        <div class="w3-display-container w3-col" id="SummitShaper" style="width:auto"><img src="/img/items/weapeon/all/SummitShaper.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SummitShaper')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SummitShaper')"></div>
+        <div class="w3-display-container w3-col" id="SwordofDescension" style="width:auto"><img src="/img/items/weapeon/all/SwordofDescension.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('SwordofDescension')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('SwordofDescension')"></div>
+        <div class="w3-display-container w3-col" id="TheAlleyFlash" style="width:auto"><img src="/img/items/weapeon/all/TheAlleyFlash.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('TheAlleyFlash')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('TheAlleyFlash')"></div>
+        <div class="w3-display-container w3-col" id="TheBell" style="width:auto"><img src="/img/items/weapeon/all/TheBell.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('TheBell')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('TheBell')"></div>
+        <div class="w3-display-container w3-col" id="TheBlackSword" style="width:auto"><img src="/img/items/weapeon/all/TheBlackSword.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('TheBlackSword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('TheBlackSword')"></div>
+        <div class="w3-display-container w3-col" id="TheCatch" style="width:auto"><img src="/img/items/weapeon/all/TheCatch.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('TheCatch')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('TheCatch')"></div>
+        <div class="w3-display-container w3-col" id="TheFlute" style="width:auto"><img src="/img/items/weapeon/all/TheFlute.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('TheFlute')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('TheFlute')"></div>
+        <div class="w3-display-container w3-col" id="TheStringless" style="width:auto"><img src="/img/items/weapeon/all/TheStringless.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('TheStringless')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('TheStringless')"></div>
+        <div class="w3-display-container w3-col" id="TheUnforged" style="width:auto"><img src="/img/items/weapeon/all/TheUnforged.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('TheUnforged')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('TheUnforged')"></div>
+        <div class="w3-display-container w3-col" id="TheViridescentHunt" style="width:auto"><img src="/img/items/weapeon/all/TheViridescentHunt.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('TheViridescentHunt')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('TheViridescentHunt')"></div>
+        <div class="w3-display-container w3-col" id="TheWidsith" style="width:auto"><img src="/img/items/weapeon/all/TheWidsith.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('TheWidsith')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('TheWidsith')"></div>
+        <div class="w3-display-container w3-col" id="ThrillingTalesofDragonSlayers" style="width:auto"><img src="/img/items/weapeon/all/ThrillingTalesofDragonSlayers.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('ThrillingTalesofDragonSlayers')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('ThrillingTalesofDragonSlayers')"></div>
+        <div class="w3-display-container w3-col" id="ThunderingPulse" style="width:auto"><img src="/img/items/weapeon/all/ThunderingPulse.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('ThunderingPulse')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('ThunderingPulse')"></div>
+        <div class="w3-display-container w3-col" id="TravelerHandySword" style="width:auto"><img src="/img/items/weapeon/all/TravelerHandySword.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('TravelerHandySword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('TravelerHandySword')"></div>
+        <div class="w3-display-container w3-col" id="TwinNephrite" style="width:auto"><img src="/img/items/weapeon/all/TwinNephrite.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('TwinNephrite')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('TwinNephrite')"></div>
+        <div class="w3-display-container w3-col" id="VortexVanquisher" style="width:auto"><img src="/img/items/weapeon/all/VortexVanquisher.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('VortexVanquisher')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('VortexVanquisher')"></div>
+        <div class="w3-display-container w3-col" id="WasterGreatsword" style="width:auto"><img src="/img/items/weapeon/all/WasterGreatsword.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('WasterGreatsword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('WasterGreatsword')"></div>
+        <div class="w3-display-container w3-col" id="Whiteblind" style="width:auto"><img src="/img/items/weapeon/all/Whiteblind.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('Whiteblind')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('Whiteblind')"></div>
+        <div class="w3-display-container w3-col" id="WhiteIronGreatsword" style="width:auto"><img src="/img/items/weapeon/all/WhiteIronGreatsword.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('WhiteIronGreatsword')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('WhiteIronGreatsword')"></div>
+        <div class="w3-display-container w3-col" id="WhiteTassel" style="width:auto"><img src="/img/items/weapeon/all/WhiteTassel.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('WhiteTassel')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('WhiteTassel')"></div>
+        <div class="w3-display-container w3-col" id="WindblumeOde" style="width:auto"><img src="/img/items/weapeon/all/WindblumeOde.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('WindblumeOde')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('WindblumeOde')"></div>
+        <div class="w3-display-container w3-col" id="WineandSong" style="width:auto"><img src="/img/items/weapeon/all/WineandSong.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('WineandSong')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('WineandSong')"></div>
+        <div class="w3-display-container w3-col" id="WolfGravestone" style="width:auto"><img src="/img/items/weapeon/all/WolfGravestone.png" style="width:100px;margin-top:10px;margin-left:5px" class="w3-hover-opacity " onclick="selectweapon('WolfGravestone')"><img src="/img/character/head/selected.png" style="width:100px;margin-top:5px" class="w3-display-middle hidea w3-hover-opacity" onclick="selectweapon('WolfGravestone')"></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div id="removeall" class="w3-modal">
+  <div class="w3-modal-content" style="padding:32px">
+    <div class=" w3-white w3-center w3-display-container" style="height:150px">
+      <i onclick="document.getElementById('removeall').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent"></i>
+      <h3>Remove all ?</h3>
+      <p>This <i><B>will</B></i> remove <i><b>everything</b></i></p>
+      <div class="w3-display-bottomright">
+        <button class="w3-button w3-black" onclick="document.getElementById('removeall').style.display='none'" style="margin-right:30px ;">No</button>
+        <button class="w3-button w3-red" onclick="removeall();document.getElementById('removeall').style.display='none'">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
   <script>
       function myFunction() {
@@ -422,7 +703,6 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
       li[i].style.display = "none";
     }
   }
-  console.log(filter)
   if(filter == "DEVIL" || filter == "DEMON"){
   document.getElementById("rin").style.display = ""
   document.getElementById("shinra").style.display = ""
@@ -512,16 +792,21 @@ var countDownDate
     }
     var x = setInterval(function() {
     var now = new Date().getTime();
+    var hour = Math.floor((now % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minute = Math.floor((now % (1000 * 60 * 60)) / (1000 * 60));
+    var second = Math.floor((now % (1000 * 60)) / 1000)
     var distance = countDownDate - now;
     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    document.getElementById("time").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
+    document.getElementById("updatetime").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
     if (distance < 0) {
       clearInterval(x);
-      document.getElementById("time").innerHTML = "EXPIRED";
+      document.getElementById("updatetime").innerHTML = "EXPIRED";
     }
     }, 1000);
     </script>
-    
+    <script src='/js/functions.js'></script>
+    <script src='/js/character.js'></script>
+    <script src='/js/weapon.js'></script>
