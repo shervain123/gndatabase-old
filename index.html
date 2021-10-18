@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href='/js/functions.js' rel="preload" as="script">
 <link href='/js/character.js' rel="preload" as="script">
 <link href='/js/weapon.js' rel="preload" as="script">
@@ -88,7 +89,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
   background-color: red;
 }
 .reset{
-  background-color: #000000;
+  background-color: rgb(173, 0, 0);
   border:none;
   padding: 8px 16px;
   overflow: hidden;
@@ -96,16 +97,43 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
   cursor: pointer;
   white-space: nowrap;
 }
+.basicbitch{
+  background-color: #c0c0c0;
+  border:none;
+  padding: 7px 16px;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  color:#000000;
+}
+.basicbitch:hover{
+  background-color: 404040;
+  color:#ffffff
+}
+.selected{
+  opacity:30%
+}
 </style>
 <body class="w3-black" onload="gettime();loadsave()">
 <div class="w3-black">
 <nav class="w3-sidebar w3-bar-block w3-black w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
-    <div class="w3-container w3-display-container w3-padding-16">
+    <div class="w3-container w3-display-container" style="padding-top:16px; padding-left:16px">
       <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
       <a href="/" style="text-decoration: none;"><h3 class="w3-wide"><b>Genshin database</b></h3></a>
     </div>
-
-    <div class="w3-padding-16 w3-large w3-text-grey" >
+    <div style="margin-left:16px">
+      <i onclick="document.getElementById('characterselector').style.display='block'" style="font-size: 17px;" class="basicbitch material-icons">
+        add
+      </i>
+      <i onclick="showall();" id="expand" class="basicbitch material-icons w3-left-align" style="font-size: 20px;padding:5.5px 16px">
+        expand_more
+      </i>
+      <i onclick="document.getElementById('removeall').style.display='block'" style="font-size: 15px;" class=" reset material-icons">
+         clear
+      </i>
+    </div>
+    <div class="w3-padding-32 w3-large w3-text-grey" >
       <a href="#charcter" class="w3-button w3-block w3-black w3-left-align">
         Home
       </a>
@@ -129,15 +157,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
       </a>
     </div>
     <div class="w3-padding-16" style="font-size: 14px;">
-      <a href="javascript:void(0)" onclick="document.getElementById('characterselector').style.display='block'" class="w3-button w3-block w3-black w3-left-align">
-        Select character
-      </a>
-      <a href="javascript:void(0)" onclick="document.getElementById('weaponselector').style.display='block'" class="w3-button w3-block w3-black w3-left-align">
-        Select Weapon
-      </a>
-      <a href="javascript:void(0)" onclick="document.getElementById('removeall').style.display='block'" class=" reset w3-block w3-left-align">
-        Remove All
-      </a>
+      
       <a href="https://curiouscat.qa/sherx" class="w3-button w3-block w3-black w3-left-align">
         Feedback
       </a>
@@ -155,33 +175,32 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
  <!--main i guess-->
  <div class="w3-main w3-black" style="margin-left:250px">
   <div id="teams" class="w3-display-container">
-    <div class="w3-black"><h2 style="margin-left:10px;">Ascension Materials</h2></div>
     <div id="time" class=" w3-light-grey">
       <div id="mondaymain" class="hidea">
      <div class="w3-black"><h2 style="margin-left:10px;" id="mondaytitle">Monday</h2></div>
         <div id="monday" style="margin-left:10px;min-height: 40px;">
-         <p id="mondayno" class="hidea">No ascension materials for today</p>
+         <p id="mondayno" class="hidea">No domain avalible for selected items for today</p>
          <p id="mondaymt" class="hidea">No items were selected</p>
      </div>
    </div>
    <div id="tuesdaymain" class="hidea">
         <div class="w3-black"><h2 style="margin-left:10px;" id="tuesdaytitle">Tuesday</h2></div>
         <div id="tuesday" style="margin-left:10px;min-height: 40px;">
-         <p id="tuesdayno" class="hidea">No ascension materials for today</p>
+         <p id="tuesdayno" class="hidea">No domain avalible for selected items for today</p>
          <p id="tuesdaymt" class="hidea">No items were selected</p>
         </div>
         </div>
         <div id="wednesdaymain" class="hidea">
         <div class="w3-black"><h2 style="margin-left:10px;" id="wednesdaytitle">Wednesday</h2></div>
         <div id="wednesday" style="margin-left:10px;min-height: 40px;">
-         <p id="wednesdayno" class="hidea">No ascension materials for today</p>
+         <p id="wednesdayno" class="hidea">No domain avalible for selected items for today</p>
          <p id="wednesdaymt" class="hidea">No items were selected</p>
          </div>
        </div>
        <div id="sundaymain" class="hidea">
         <div class="w3-black"><h2 style="margin-left:10px;">Sunday</h2></div>
         <div id="sunday" style="margin-left:10px;min-height: 40px;">
-          <p id="sundayno" class="hidea">No ascension materials for today</p>
+          <p id="sundayno" class="hidea">No domain avalible for selected items for today</p>
          <p id="sundaymt" class="hidea">No items were selected</p>
          </div>
         </div>
@@ -479,6 +498,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
       <i onclick="document.getElementById('characterselector').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent"></i>
       <h3>Select Character</h3>
       <div>
+        <button class="w3-button w3-black" onclick="document.getElementById('characterselector').style.display='none';document.getElementById('weaponselector').style.display='block'">Weapon</button>
         <button class="w3-button w3-black" onclick="filterSelections('all')">All</button>
         <button class="w3-button w3-black" onclick="filterSelections('anemo')"><img src="/img/items/element/anemo.png" style="width:22.5px"></button>
         <button class="w3-button w3-black" onclick="filterSelections('cryo')"><img src="/img/items/element/cryo.png" style="width:22.5px"></button>
@@ -542,6 +562,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
       <i onclick="document.getElementById('weaponselector').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent"></i>
       <h3>Select Weapon</h3>
       <div>
+        <button class="w3-button w3-black" onclick="document.getElementById('characterselector').style.display='block';document.getElementById('weaponselector').style.display='none'">Character</button>
         <input type="text" class="Input" id="weaponinput" onkeyup="search('weaponss','weaponinput')" placeholder="Search by name or element..." title="Type in a name" style="width: 50%;">
       </div>
       <div id="weaponss" class="w3-container w3-center">

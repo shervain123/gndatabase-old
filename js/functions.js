@@ -1,3 +1,4 @@
+ var unhideall = 0
  function removeall(){
      var e = document.getElementById("characterss")
      var a = e.getElementsByTagName("div")
@@ -108,10 +109,12 @@ function selectcha(name){
     characterimage(name)
   sel[1].classList.remove("hidea")
   sel[0].classList.remove("w3-hover-opacity")
+  sel[0].classList.add("selected")
   }else{
     removecha(name)
   sel[1].classList.add("hidea")
   sel[0].classList.add("w3-hover-opacity")
+  sel[0].classList.remove("selected")
   }
   checkitems()
 }
@@ -122,10 +125,12 @@ function selectweapon(name){
     weaponimage(name)
   sel[1].classList.remove("hidea")
   sel[0].classList.remove("w3-hover-opacity")
+  sel[0].classList.add("selected")
   }else{
     removeweapon(name)
   sel[1].classList.add("hidea")
   sel[0].classList.add("w3-hover-opacity")
+  sel[0].classList.remove("selected")
   }
   checkitems()
 }
@@ -158,33 +163,60 @@ function loadsave(){
     }
   }
   checkitems()
+  hidedays()
+  
+}
+function hidedays(){
   var dayf = daycheck()
 
     if(dayf == "monday"){
       document.getElementById("mondaymain").classList.remove("hidea")
+      document.getElementById("tuesdaymain").classList.add("hidea")
+      document.getElementById("wednesdaymain").classList.add("hidea")
+      document.getElementById("sundaymain").classList.add("hidea")
+      document.getElementById("mondaytitle").innerText="Monday"
     }
     else if(dayf == "tuesday"){
       document.getElementById("tuesdaymain").classList.remove("hidea")
+      document.getElementById("mondaymain").classList.add("hidea")
+      document.getElementById("wednesdaymain").classList.add("hidea")
+      document.getElementById("sundaymain").classList.add("hidea")
+      document.getElementById("tuesdaytitle").innerText="Tuesday"
     }
     else if(dayf == "wednesday"){
       document.getElementById("wednesdaymain").classList.remove("hidea")
+      document.getElementById("mondaymain").classList.add("hidea")
+      document.getElementById("tuesdaymain").classList.add("hidea")
+      document.getElementById("sundaymain").classList.add("hidea")
+      document.getElementById("wednesdaytitle").innerText="Wednesday"
     }
     else if(dayf == "thursday"){
       document.getElementById("mondaymain").classList.remove("hidea")
       document.getElementById("mondaytitle").innerText="Thursday"
+      document.getElementById("tuesdaymain").classList.add("hidea")
+      document.getElementById("sundaymain").classList.add("hidea")
+      document.getElementById("wednesdaymain").classList.add("hidea")
     }
     else if(dayf ==  "friday"){
       document.getElementById("tuesdaymain").classList.remove("hidea")
       document.getElementById("tuesdaytitle").innerText="Friday"
+      document.getElementById("mondaymain").classList.add("hidea")
+      document.getElementById("sundaymain").classList.add("hidea")
+      document.getElementById("wednesdaymain").classList.add("hidea")
     }
     else if(dayf == "saturday"){
       document.getElementById("wednesdaymain").classList.remove("hidea")
       document.getElementById("wednesdaytitle").innerText="Saturday"
+      document.getElementById("mondaymain").classList.add("hidea")
+      document.getElementById("sundaymain").classList.add("hidea")
+      document.getElementById("tuesdaymain").classList.add("hidea")
     }
     else if(dayf == "sunday"){
       document.getElementById("sundaymain").classList.remove("hidea")
+      document.getElementById("mondaymain").classList.add("hidea")
+      document.getElementById("tuesdaymain").classList.add("hidea")      
+      document.getElementById("wednesdaymain").classList.add("hidea")
     }
-  
 }
 function checkitems() {
   var cookies = listCookies()
@@ -244,4 +276,22 @@ function checkitems() {
       }else if(day == 6){
         return "saturday";
       }
+    }
+
+    function showall() {
+      if(unhideall == 0){
+        document.getElementById("expand").innerText = "expand_less"
+        unhideall = 1
+      document.getElementById("mondaymain").classList.remove("hidea")
+      document.getElementById("tuesdaymain").classList.remove("hidea")
+      document.getElementById("wednesdaymain").classList.remove("hidea")
+      document.getElementById("mondaytitle").innerText="Monday / Thursday"
+      document.getElementById("tuesdaytitle").innerText="Tuesday / Friday"
+      document.getElementById("wednesdaytitle").innerText="Wednesday / Saturday"
+      document.getElementById("sundaymain").classList.remove("hidea")
+    }else{
+      hidedays()
+      unhideall = 0
+      document.getElementById("expand").innerText = "expand_more"
+    }
     }
