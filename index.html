@@ -812,24 +812,24 @@ input:checked + .slider:before {
       </div>
       <p>Paste this link on any devices you want to import, or check the check box below to just share with friends.</p>
       <h4>Options</h4>
-      <div class="w3-row">
-      <p>Team name (optional)</p>
-      <input placeholder="Team1" type="text" id="teamname" class="w3-col incon" onkeydown="generate()" onkeyup="generate()" style="width:50%">
-      <div class="w3-rest w3-row">
-        <div style="margin-left:100px">
-          <p class="w3-col" style="width:auto">Export </p>
-          <label class="switch w3-col" style="margin-top:9px;margin-left:5px;margin-right: 5px;">
-            <input type="checkbox" id="exportype" onclick="generate()">
-            <span class="slider round"></span>
-          </label>
-          <p class="w3-col" style="width:auto"> Share Teams</p>
+      <div>
+        <p>Team name (optional)</p>
+        <input placeholder="Team1" type="text" id="teamname" class="w3-col incon" onkeydown="generate()" onkeyup="generate()" style="width:100%">
+        <div class="w3-row">
+          <div style="margin-top:10px">
+            <p class="w3-col" style="width:auto">Export </p>
+            <label class="switch w3-col" style="margin-top:9px;margin-left:5px;margin-right: 5px;">
+              <input type="checkbox" id="exportype" onclick="generate()">
+              <span class="slider round"></span>
+            </label>
+            <p class="w3-col" style="width:auto"> Share Teams</p>
+          </div>
         </div>
-      </div>
-      <p>Items will be exporting</p>
-      <div id="exportitems">
-
-      </div>
-      </div>
+        <p>Items will be exporting</p>
+        <div id="exportitems">
+  
+        </div>
+        </div>
     </div>
   </div>
 </div>
