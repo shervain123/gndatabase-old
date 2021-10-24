@@ -6,6 +6,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href='/js/functions.js' rel="preload" as="script">
 <link href='/js/character.js' rel="preload" as="script">
+<link href='/js/export.js' rel="preload" as="script">
 <link href='/js/weapon.js' rel="preload" as="script">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Genshin Database" />
@@ -107,12 +108,100 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
   white-space: nowrap;
   color:#000000;
 }
+.bye{
+  opacity: 0%;
+}
 .basicbitch:hover{
   background-color: 404040;
   color:#ffffff
 }
 .selected{
   opacity:30%
+}
+
+.incon{
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+  background-color: #f0f0f0;
+
+}
+
+.search-container button {
+  float: right;
+  padding: 7px 10px;
+  margin-top: 8px;
+  margin-right:0px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  opacity: 100%;
+  transition: opacity 1s;
+}
+
+.search-container button:hover {
+  background: #ccc;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 </style>
 <body class="w3-black" onload="gettime();loadsave()">
@@ -129,9 +218,13 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
       <i onclick="showall();" id="expand" class="basicbitch material-icons w3-left-align" style="font-size: 20px;padding:5.5px 16px">
         expand_more
       </i>
-      <i onclick="document.getElementById('removeall').style.display='block'" style="font-size: 15px;" class=" reset material-icons">
+      <i onclick="document.getElementById('export').style.display='block';generate()" class="basicbitch material-icons w3-left-align" style="font-size: 17px;">
+        file_upload
+      </i>
+      <i onclick="document.getElementById('removeall').style.display='block';" style="font-size: 15px;" class=" reset material-icons">
          clear
       </i>
+      
     </div>
     <div class="w3-padding-32 w3-large w3-text-grey" >
       <a href="#charcter" class="w3-button w3-block w3-black w3-left-align">
@@ -706,8 +799,42 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
     </div>
   </div>
 </div>
+
+<div id="export" class="w3-modal">
+  <div class="w3-modal-content" style="padding:32px;width:90%">
+    <div class=" w3-white w3-display-container" style="height:auto">
+      <i onclick="document.getElementById('export').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent"></i>
+      <h3 class="w3-center">Export</h3>
+      <div class="search-container w3-display-container">
+          <input readonly value="Not generated" type="text" id="exporto" class="incon" style="width:96%">
+          <button class="w3-display-topright" onclick="copydee()"><i class="material-icons" id="copi">content_copy</i></button>
+      </div>
+      <p>Paste this link on any devices you want to import, or check the check box below to just share with friends.</p>
+      <h4>Options</h4>
+      <div class="w3-row">
+      <p>Team name (optional)</p>
+      <input placeholder="Team1" type="text" id="teamname" class="w3-col incon" onkeydown="generate()" onkeyup="generate()" style="width:50%">
+      <div class="w3-rest w3-row">
+        <div style="margin-left:100px">
+          <p class="w3-col" style="width:auto">Export </p>
+          <label class="switch w3-col" style="margin-top:9px;margin-left:5px;margin-right: 5px;">
+            <input type="checkbox" id="exportype" onclick="generate()">
+            <span class="slider round"></span>
+          </label>
+          <p class="w3-col" style="width:auto"> Share Teams</p>
+        </div>
+      </div>
+      <p>Items will be exporting</p>
+      <div id="exportitems">
+
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
   <script>
+    
       function myFunction() {
   // Declare variables
   var input, filter, ul, li, a, i, txtValue;
@@ -830,4 +957,5 @@ var countDownDate
     </script>
     <script src='/js/functions.js'></script>
     <script src='/js/character.js'></script>
+    <script src='/js/export.js'></script>
     <script src='/js/weapon.js'></script>

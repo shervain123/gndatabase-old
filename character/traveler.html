@@ -1247,7 +1247,7 @@ a{
       }
     }
     function imagecheck() {
-      var a = document.cookie;
+      var a = getCookie("img")
       var lummined = document.getElementById("lumine")
       var lumminem = document.getElementById("luminemo")
       var aetherd = document.getElementById("aether")
@@ -1255,7 +1255,7 @@ a{
       var space = document.getElementById("spacetaker1")
       var space1 = document.getElementById("spacetaker2")
       console.log(a)
-      if(a[4] == "1"){
+      if(a == "3"){
         console.log("Last state is lumine")
         space.classList.add("hidea")
         space1.classList.add("hidea")
@@ -1267,7 +1267,7 @@ a{
         lumminem.classList.remove("hidea")
         aetherd.classList.add("hidea")
         aetherm.classList.add("hidea")
-      }else if(a[4] == "0"){
+      }else if(a == "0"){
         space.classList.add("hidea")
         space1.classList.add("hidea")
         console.log("Last state is aether")
@@ -1345,7 +1345,7 @@ a{
      fadeout("aether");
      fadein("luminemo");
      fadeout("aethermo");
-     document.cookie = ("img=1; SameSite=None;")
+     document.cookie = ("img=3; SameSite=None;")
    }
     function w3_open() {
       document.getElementById("mySidebar").style.display = "block";
@@ -1409,5 +1409,10 @@ a{
     function tothetopu() {
     document.body.scrollTop = 0;
     } 
+    function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
     </script>
    

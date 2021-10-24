@@ -122,11 +122,24 @@ function characterimage(name){
 
 function removecha(name){
   var day = charactertimes(name)
-  document.cookie= name+"=0"
+  document.cookie= name+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC"
   for (let step = 0; step < day.length; step++) {
     var days = document.getElementById(name+day[step])
     days.remove()
   }
   var days = document.getElementById(name+"sunday")
     days.remove()
+}
+
+function characterimagev(name,element){
+  var imagefile = characterimg(name)
+  if(element == "") var parent = document.getElementById("character")
+  else var parent = document.getElementById(element)
+  var image = document.createElement("img")
+  image.src = imagefile
+  image.style.width="120px"
+  image.style.margin="5px 0px 5px 0px"
+  image.onclick = function(){location.href = "/character/"+name+".html"}
+  image.classList.add("w3-hover-opacity")
+  parent.appendChild(image)
 }

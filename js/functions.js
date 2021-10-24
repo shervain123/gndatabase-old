@@ -35,12 +35,14 @@
   var e = document.getElementById("weaponss")
   var a = e.getElementsByTagName("div")
   for (let step = 0; step < a.length; step++) {
+
    var s = a[step]
    var b = s.getElementsByTagName("img")
    if(b[1].classList.contains("hidea")){
     selectweapon(s.id)
    }
  }
+ generate()
  checkitems()
 }
   // things that you don't need to care
@@ -164,7 +166,6 @@ function loadsave(){
   }
   checkitems()
   hidedays()
-  
 }
 function hidedays(){
   var dayf = daycheck()

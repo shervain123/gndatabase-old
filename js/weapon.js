@@ -281,10 +281,22 @@ function weaponimage(name){
 
 function removeweapon(name){
   var day = weapontimes(name)
-  document.cookie= name+"=0"
+  document.cookie= name+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC"
   var days = document.getElementById(name+day)
   days.remove()
   var days = document.getElementById(name+"sunday")
   days.remove()
   
+}
+function weaponimagev(name,element){
+  var imagefile = weaponimg(name)
+  if(element == "") var day = document.getElementById("weapon")
+  else var day = document.getElementById(element)
+  var image = document.createElement("img")
+  image.src = imagefile
+  image.style.width="120px"
+  image.style.margin="5px 0px 5px 0px"
+  image.onclick = function(){location.href = "/tools/weapon.html#"+days}
+  image.classList.add("w3-hover-opacity")
+  day.appendChild(image)
 }
