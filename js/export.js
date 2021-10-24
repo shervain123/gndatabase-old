@@ -237,5 +237,6 @@ function generate(){
   if(check.checked == true) exporti = "import=0;viewonly=1"
   else exporti = "import=1;viewonly=0"
   var texout = document.getElementById("exporto")
-  texout.value = "https://gndatabase.ml/import.html?" + exporti + ";name=" + temname + ";cha" + concharacter + "wea" + conweapon
+  var exporttext = "https://gndatabase.ml/import.html?" + exporti + ";name=" + temname + ";cha" + concharacter + "wea" + conweapon
+  texout.value=encodeURI(exporttext)
 }
