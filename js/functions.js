@@ -296,3 +296,40 @@ function checkitems() {
       document.getElementById("expand").innerText = "expand_more"
     }
     }
+    function votes(){
+      var dont = getCookie("novotes")
+      var vo = document.getElementById("vote?")
+      if(dont == "true"){
+        vo.classList.add("hidea")
+      }else{
+        vo.classList.remove("hidea")
+      }
+    }
+    function idontwant(){
+      var vo = document.getElementById("vote?")
+      var te = vo.getElementsByTagName("a")
+      te[0].innerText="Was hoping you would tell us."
+      vo.classList.remove("slide-in-bottom")
+      vo.classList.add("slide-out-bottom")
+      createCookie("novotes","true",30)
+    }
+    function iwvote(){
+      var vo = document.getElementById("vote?")
+      var te = vo.getElementsByTagName("a")
+      te[0].innerText="Thanks in advance"
+      vo.classList.remove("slide-in-bottom")
+      vo.classList.add("slide-out-bottom")
+      createCookie("novotes","true",365)
+      setTimeout(function(){window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLScVneA7aB9t9JUUMLxxkhU5_wmO6sussqMHXucHnt1fLtzFEw/viewform?usp=sf_link";},3000)
+    }
+    function createCookie(name, value, days) {
+      var date, expires;
+      if (days) {
+          date = new Date();
+          date.setDate(date.getDate()+days);
+          expires = "; expires="+date.toUTCString();
+      } else {
+          expires = "";
+      }
+      document.cookie = name+"="+value+expires+"; path=/";
+  }
