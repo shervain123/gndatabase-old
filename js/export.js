@@ -238,5 +238,5 @@ function generate(){
   else exporti = "import=1;viewonly=0"
   var texout = document.getElementById("exporto")
   var exporttext = "https://gndatabase.ml/import.html?" + exporti + ";name=" + temname + ";cha" + concharacter + "wea" + conweapon
-  texout.value=encodeURI(exporttext)
+  texout.value=encodeURI(exporttext) 
 }
