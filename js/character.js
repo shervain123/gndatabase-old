@@ -81,6 +81,7 @@ case "sayu": return ["wednesday"];
 case "sucrose": return ["monday"]; 
 case "tartaglia": return ["monday"]; 
 case "traveler": return ["monday","tuesday","wednesday"]; 
+case "thoma": return ["monday"]; 
 case "venti": return ["wednesday"]; 
 case "xiangling": return ["tuesday"]; 
 case "xiao": return ["monday"]; 
