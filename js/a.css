@@ -1,0 +1,36 @@
+@-webkit-keyframes slop-in-top {
+    0% {
+      -webkit-transform: translateY(-1000px);
+              transform: translateY(-1000px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateY(0);
+              transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slop-in-top {
+    0% {
+      -webkit-transform: translateY(-1000px);
+              transform: translateY(-1000px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateY(0);
+              transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  .slop-in-top {
+	-webkit-animation: slop-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slop-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@font-face {
+    font-family: roboto_mono;
+    src: url(https://fonts.googleapis.com/css?family=Roboto+Mono);
+}
+.roboto-mono{
+    font-family: "Roboto Mono", sans-serif;
+    margin:0px 10px;
+    }
