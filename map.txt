@@ -45,3 +45,4 @@ https://gndatabase.ml/character/xinyan.html
 https://gndatabase.ml/character/yanfei.html
 https://gndatabase.ml/character/yoimiya.html
 https://gndatabase.ml/character/zhongli.html
+https://gndatabase.ml/character/thoma.html
