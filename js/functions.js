@@ -1,9 +1,4 @@
  var unhideall = 0
- var h1 = "<h1>"
- var h1close = "</h1>"
- var tex = "<p>"
- var closing = "</p>"
- const abc = "g"
  function removeall(){
      var e = document.getElementById("characterss")
      var a = e.getElementsByTagName("div")
@@ -71,7 +66,6 @@ const gbc = "n"
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
   }
-  const hbu = "base"
   function search(id,input) {
     // Declare variables
     var input, filter, ul, li, a, i, txtValue;
@@ -89,7 +83,6 @@ const gbc = "n"
       }
     }
   }
-const asd = "data"
   function filterSelections(c) {
   var x, i;
   x = document.getElementsByClassName("filterImg");
@@ -109,7 +102,6 @@ function myAccFunc() {
     x.className = x.className.replace(" w3-show", "");
   }
 }
-const asjk = ".ml"
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -129,7 +121,6 @@ function selectcha(name){
   }
   checkitems()
 }
-const hub = "beta."
 function selectweapon(name){
   var parent = document.getElementById(name)
   var sel = parent.getElementsByTagName("img")
@@ -146,7 +137,6 @@ function selectweapon(name){
   }
   checkitems()
 }
-var what = "It seems like someone try to bypass the checks"
 function listCookies() {
   var theCookies = document.cookie.split(';');
   var aString = []
@@ -176,15 +166,6 @@ function loadsave(){
   }
   checkitems()
   hidedays()
-  
-  try{
-  if(dfjkh8734hgvh == 1) a = 1
-}
-catch(err){
-  document.body.innerHTML=h1+text+h1close+tex+what+closing
-  console.log(err)
-}
-
 }
 
 function hidedays(){
