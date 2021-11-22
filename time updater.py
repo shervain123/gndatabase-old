@@ -10,7 +10,7 @@ if(x == today.strftime("%m/%d/%Y")):
     EndDate = date_1+timedelta(weeks=6)
     print("time processed by python : {}    \ntime after 6 weeks       : {}\n\n\n\n".format(date_1.strftime("%m/%d/%Y"),EndDate.strftime("%m/%d/%Y")))
     a = open("time.txt","w")
-    a.write(EndDate.strftime("%m/%d/%Y")+" 20:00:00")
+    a.write(EndDate.strftime("%m/%d/%Y")+" 20:00:00 +00:00")
     a.close()
 else:
     print("\nNo time change needed\n\n\n\n")
