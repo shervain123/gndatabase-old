@@ -301,7 +301,7 @@ input:checked + .slider:before {
   color: #909090
 }
 </style>
-<body class="w3-black" onload="gettime();loadsave();votes()">
+<body class="w3-black" onload="loadsave();votes();gettime()">
 <div class="w3-black">
 <nav class="w3-sidebar w3-bar-block w3-black w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
     <div class="w3-container w3-display-container" style="padding-top:16px; padding-left:16px">
@@ -1034,6 +1034,7 @@ function w3RemoveClass(element, name) {
   }
   element.className = arr1.join(" ");
 }
+var succ_time = 0
 var countDownDate 
     function gettime() {
       var rawFile = new XMLHttpRequest();
@@ -1042,10 +1043,12 @@ var countDownDate
         if (rawFile.readyState === 4) {
           var allText = rawFile.responseText;
           countDownDate = new Date(allText).getTime();
+          succ_time = 1
         }
     }
     rawFile.send();
     }
+    
     var x = setInterval(function() {
     var now = new Date().getTime();
     var hour = Math.floor((now % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -1059,10 +1062,11 @@ var countDownDate
     if (distance < 0) {
       document.getElementById("updatetime").innerHTML = "EXPIRED";
       gettime()
-    }else{
+    }else if(succ_time == 1){
       document.getElementById("updatetime").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
     }
     }, 1000);
+  
     </script>
     <script src='/js/character.js'></script>
     <script src='/js/export.js'></script>
