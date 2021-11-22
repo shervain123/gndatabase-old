@@ -169,6 +169,10 @@ function str2hex(name){
         case "WindblumeOde": return "&78";
         case "WineandSong": return "&79";
         case "WolfGravestone": return "&7a";
+        case "MouunMoon": return "&7b"
+        case "PolarStar": return "&7c"
+        case "WavebreakerFin": return "&7d"
+        case "Akuoumaru": return "&7e"
     
     }
 }

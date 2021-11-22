@@ -168,6 +168,10 @@ function numtostrw(hex){
         case "78": return "WindblumeOde";
         case "79": return "WineandSong";
         case "7a": return "WolfGravestone";
+        case "7b": return "MouunMoon";
+        case "7c": return "PolarStar";
+        case "7d": return "WavebreakerFin";
+        case "7e": return "Akuoumaru";
     
     }
 }

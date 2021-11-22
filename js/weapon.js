@@ -122,7 +122,10 @@ function weaponimg(name){
     case "WindblumeOde": return "/img/items/weapeon/all/WindblumeOde.png" 
     case "WineandSong": return "/img/items/weapeon/all/WineandSong.png" 
     case "WolfGravestone": return "/img/items/weapeon/all/WolfGravestone.png" 
-    
+    case "MouunMoon": return "/img/items/weapeon/all/MouunMoon.png"
+    case "PolarStar": return "/img/items/weapeon/all/PolarStar.png"
+    case "WavebreakerFin": return "/img/items/weapeon/all/WavebreakerFin.png"
+    case "Akuoumaru":return "/img/items/weapeon/all/Akuoumaru.png"
   }
 }
 
@@ -250,7 +253,10 @@ function weapontimes(name){
     case "WindblumeOde": return "wednesday" 
     case "WineandSong": return "tuesday" 
     case "WolfGravestone": return "wednesday" 
-    
+    case "MouunMoon": return "tuesday"
+    case "PolarStar": return "wednesday"
+    case "WavebreakerFin": return "wednesday"
+    case "Akuoumaru": return "monday"
   }
 }
 
