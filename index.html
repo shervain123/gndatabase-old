@@ -630,7 +630,7 @@ input:checked + .slider:before {
         </div>
         <div class="w3-black w3-center w3-container" >
           <h6 style="margin-top: 10px;">Time till next update</h6>
-          <h2 id="updatetime">dd mm yyyy hh mm ss</h2>
+          <h2 id="updatetime"></h2>
         </div>
     </div>
     <div class="w3-container" id="talent">
@@ -1056,10 +1056,11 @@ var countDownDate
     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    document.getElementById("updatetime").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
     if (distance < 0) {
-      clearInterval(x);
       document.getElementById("updatetime").innerHTML = "EXPIRED";
+      gettime()
+    }else{
+      document.getElementById("updatetime").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
     }
     }, 1000);
     </script>
