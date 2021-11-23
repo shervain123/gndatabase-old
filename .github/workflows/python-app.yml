@@ -21,7 +21,7 @@ jobs:
         python-version: 3.9
     - name: Install tweepy
       run: |
-        pytho -m pip install tweepy
+        python -m pip install tweepy
     - name: Update time
       env:
         COMSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
