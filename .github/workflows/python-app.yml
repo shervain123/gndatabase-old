@@ -28,6 +28,7 @@ jobs:
         CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
         access_token: ${{ secrets.access_token }}
         access_token_secret: ${{ secrets.access_token_secret }}
+        gitsecret: ${{ secrets.gitsecret }}
       run: |
         python "time updater.py"
     - name: Update time on Github
