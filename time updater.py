@@ -5,11 +5,13 @@ CONSUMER_KEY=os.environ['COMSUMER_KEY']
 CONSUMER_SECRET=os.environ['COMSUMER_SECRET']
 access_token = os.environ['access_token']
 access_token_secret = os.environ['access_token_secret']
+tester = os.environ['gitsecret']
 ass = open("time.txt","r")
 arse = ass.read()
 x = arse[:arse.find(" ")]
 today = date.today()
 ass.close()
+print(tester)
 print("\n\n\n\nTime get from git        : {}\nCurrent Time             : {}".format(x,today.strftime("%m/%d/%Y")))
 if(x == today.strftime("%m/%d/%Y")):
     date_1 = datetime.strptime(x, "%m/%d/%Y")
