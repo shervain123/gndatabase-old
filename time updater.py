@@ -1,11 +1,11 @@
 from datetime import datetime, timedelta, date
 import tweepy
-import os
-CONSUMER_KEY=os.environ['COMSUMER_KEY']
-CONSUMER_SECRET=os.environ['COMSUMER_SECRET']
-access_token = os.environ['access_token']
-access_token_secret = os.environ['access_token_secret']
-tester = os.environ['gitsecret']
+import sys
+CONSUMER_KEY=sys.argv[1]
+CONSUMER_SECRET=sys.argv[2]
+access_token = sys.argv[3]
+access_token_secret = sys.argv[4]
+tester = sys.argv[5]
 ass = open("time.txt","r")
 arse = ass.read()
 x = arse[:arse.find(" ")]
