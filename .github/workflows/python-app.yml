@@ -19,7 +19,16 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
+    - name: Install tweepy
+      run: |
+        python -m pip install tweepy
     - name: Update time
+      env:
+        COMSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+        CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+        access_token: ${{ secrets.access_token }}
+        access_token_secret: ${{ secrets.access_token_secret }}
+        gitsecret: ${{ secrets.gitsecret }}
       run: |
         python "time updater.py"
     - name: Update time on Github
