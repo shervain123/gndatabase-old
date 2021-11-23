@@ -25,12 +25,12 @@ if(x == today.strftime("%m/%d/%Y")):
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
     msg = '''
---- Time update report ---
+----- Time update report -----
 Current time (UTC): {}
 Last update date  : {}
 Processed time    : {}
 Next update time  : {}
---------------------------
+------------------------------
 '''.format(today.strftime("%m/%d/%Y"),x,date_1.strftime("%m/%d/%Y"),EndDate.strftime("%m/%d/%Y"),)
     msg_sim = "Time updated\nFrom: {}\nTo: {}".format(date_1.strftime("%m/%d/%Y"),EndDate.strftime("%m/%d/%Y"))
     api.send_direct_message(876283042863632384, msg)
