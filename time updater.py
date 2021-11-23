@@ -13,10 +13,7 @@ if(x == today.strftime("%m/%d/%Y")):
     a = open("time.txt","w")
     a.write(EndDate.strftime("%m/%d/%Y")+" 20:00:00 +00:00")
     a.close()
-    CONSUMER_KEY="CZnOJfgZkw0j5bUNjjqEnTK1E"
-    CONSUMER_SECRET="ooAG74oYg1wG3n5o2YqseDKQw6j9K1dtlTMLeI216fXuYt7YaM"
-    access_token = "1452561192711385089-7JZ0TPZ9CUgIljRGgEOzNbCeUv6Ovf"
-    access_token_secret = "Hfwklwva0DN6onpGb5EYsVHEGr5FyxykG99gcOhEtGzTg"
+
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
