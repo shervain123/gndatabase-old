@@ -6,7 +6,7 @@ name: Genshin update
 on:
   workflow_dispatch:
   schedule:
-  - cron: "55 19 * * *"
+  - cron: "45 19 * * *"
 
 jobs:
   Updater:
