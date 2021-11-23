@@ -1,5 +1,10 @@
 from datetime import datetime, timedelta, date
 import tweepy
+import os
+CONSUMER_KEY=os.environ['COMSUMER_KEY']
+CONSUMER_SECRET=os.environ['COMSUMER_SECRET']
+access_token = os.environ['access_token']
+access_token_secret = os.environ['access_token_secret']
 ass = open("time.txt","r")
 arse = ass.read()
 x = arse[:arse.find(" ")]
