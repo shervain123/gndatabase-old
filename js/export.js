@@ -244,3 +244,39 @@ function generate(){
   var exporttext = "https://gndatabase.ml/import.html?" + exporti + ";name=" + temname + ";cha" + concharacter + "wea" + conweapon
   texout.value=encodeURI(exporttext) 
 }
+
+function generate_link(){
+  concharacter = ""
+  conweapon = ""
+  var cookies = listCookies()
+  var i = 0
+  var chadiv = document.getElementById("exportitems")
+  chadiv.innerHTML = ""
+  for (i = 0; i < cookies.length; i++) {
+    var name = getCookie(cookies[i])
+    if(name == '1'){
+      if(concharacter == ""){
+        concharacter = strtonum(cookies[i])
+      }else{
+        concharacter = concharacter + strtonum(cookies[i])
+      }
+      characterimagev(cookies[i],"exportitems")
+    }
+    if(name == '2'){
+        if(conweapon == ""){
+            conweapon = str2hex(cookies[i])
+        }else{
+            conweapon = conweapon + str2hex(cookies[i])
+        }
+        weaponimagev(cookies[i],"exportitems")
+    }
+  }
+  var temname = document.getElementById("teamname").value
+  if(temname == "") temname = "Team1"
+  var check = document.getElementById("exportype")
+  var exporti
+  if(check.checked == true) exporti = "import=0;viewonly=1"
+  else exporti = "import=1;viewonly=0"
+  var exporttext = "https://gndatabase.ml/import.html?" + exporti + ";name=" + temname + ";cha" + concharacter + "wea" + conweapon
+  return encodeURI(exporttext) 
+}
