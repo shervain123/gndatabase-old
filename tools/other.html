@@ -41,6 +41,9 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
 .what {
   font-weight: 700;margin:0px 20px 0px 20px;
 }
+.hidea{
+  display:none;
+}
 </style>
 <body class="w3-black">
 <div class="w3-black">
@@ -51,7 +54,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
     </div>
     
     <div class="w3-large " >
-        <a href="#about" class="w3-button w3-block w3-black w3-left-align">
+        <a href="#about" class="w3-button w3-block w3-black w3-left-align hidea">
             About us
           </a>
           <a href="#contact" class="w3-button w3-block w3-black w3-left-align" >
@@ -84,7 +87,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
       </div>
     </div>
     <div class="w3-padding-64">
-      <a href="https://curiouscat.qa/gndbupdates" class="w3-button w3-block w3-black w3-left-align">
+      <a href="https://gndatabase.ml/tools/other.html" class="w3-button w3-block w3-black w3-left-align">
         Feedback
       </a>
     </div>
@@ -103,6 +106,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
  <!--main i guess-->
  <div class="w3-main w3-black" style="margin-left:250px">
     <div class="w3-light-grey">
+      <!--
         <div id="about">
 
             <h1 class="w3-black">&nbsp;&nbsp;About us</h1>
@@ -124,11 +128,16 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
         <p>&nbsp;</p>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
+      -->
         <div id="contact">
           
             <h2 class="w3-black">Contact info / suggestion</h2>
-            <p>&nbsp;&nbsp;You can contact me through <a href="https://curiouscat.qa/gndbupdates" target="blank"><b>CuriousCat</b></a>. Feedbacks and suggestions are welcomed and highly appreciated.</p>
-            <p>&nbsp;&nbsp;<a href="https://github.com/shervain123/gndatabase" target="black">or you prefer github...</a></p>
+            <p>&nbsp;&nbsp;You can contact us using the following method:</p>
+            <p>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="fo()">Google forms</a></p>
+            <p>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="window.open('mailto:support@gndatabase.ml')">Email to support@gndatabase.ml</a></p>
+            <p>&nbsp;&nbsp;<a href="https://github.com/shervain123/gndatabase/issues" target="about:blank">Github</a></p>
+            <iframe id="forms" class="hidea" src="https://docs.google.com/forms/d/e/1FAIpQLSelr0bHn0LpI75msCpXWudaReEoQnWABdr3txEcw-flfTWhRA/viewform?embedded=true" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            <p>&nbsp;&nbsp;Feedbacks and suggestions are welcomed and highly appreciated.</p>
         </div>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
@@ -253,6 +262,14 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
 </body>
   <script>
 
+function fo(){
+  fa = document.getElementById("forms")
+  if(fa.classList.contains("hidea")){
+    fa.classList.remove("hidea")
+  }else{
+    fa.classList.add("hidea")
+  }
+}
     
        // Accordion 
        function myAccFunc() {
