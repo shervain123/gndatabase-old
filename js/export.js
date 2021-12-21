@@ -42,6 +42,8 @@ function strtonum(name){
         case "yanfei": return "&40";
         case "yoimiya": return "&41";
         case "zhongli": return "&42";
+        case "itto": return "&43";
+        case "gorou": return "&44";
     
     }
 }
@@ -173,6 +175,8 @@ function str2hex(name){
         case "PolarStar": return "&7c"
         case "WavebreakerFin": return "&7d"
         case "Akuoumaru": return "&7e"
+        case "RedhornStonethresher": return "&7f"
+        case "CinnabarSpindle": return "&80"
     
     }
 }

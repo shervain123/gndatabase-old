@@ -126,6 +126,8 @@ function weaponimg(name){
     case "PolarStar": return "/img/items/weapeon/all/PolarStar.png"
     case "WavebreakerFin": return "/img/items/weapeon/all/WavebreakerFin.png"
     case "Akuoumaru":return "/img/items/weapeon/all/Akuoumaru.png"
+    case "CinnabarSpindle":return "/img/items/weapeon/all/CinnabarSpindle.png"
+    case "RedhornStonethresher":return "/img/items/weapeon/all/RedhornStonethresher.png"
   }
 }
 
@@ -257,6 +259,8 @@ function weapontimes(name){
     case "PolarStar": return "wednesday"
     case "WavebreakerFin": return "wednesday"
     case "Akuoumaru": return "monday"
+    case "CinnabarSpindle":return "monday"
+    case "RedhornStonethresher":return "tuesday"
   }
 }
 
