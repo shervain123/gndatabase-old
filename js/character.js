@@ -1,49 +1,49 @@
 function characterimg(name){
   switch(name){
-case "albedo":return "/img/character/head/Albedo.png";
-case "aloy":return "/img/character/head/Aloy.png";
-case "amber":return "/img/character/head/Amber.png";
-case "ayaka":return "/img/character/head/Ayaka.png";
-case "barbara":return "/img/character/head/Barbara.png";
-case "beidou":return "/img/character/head/Beidou.png";
-case "bennett":return "/img/character/head/Bennett.png";
-case "chongyun":return "/img/character/head/Chongyun.png";
-case "diluc":return "/img/character/head/Diluc.png";
-case "diona":return "/img/character/head/Diona.png";
-case "eula":return "/img/character/head/Eula.png";
-case "fischl":return "/img/character/head/Fischl.png";
-case "ganyu":return "/img/character/head/Ganyu.png";
-case "hu tao":return "/img/character/head/Hu Tao.png";
-case "jean":return "/img/character/head/Jean.png";
-case "kaeya":return "/img/character/head/Kaeya.png";
-case "kazuha":return "/img/character/head/Kazuha.png";
-case "keqing":return "/img/character/head/Keqing.png";
-case "klee":return "/img/character/head/Klee.png";
-case "kokomi":return "/img/character/head/Kokomi.png";
-case "lisa":return "/img/character/head/Lisa.png";
-case "mona":return "/img/character/head/Mona.png";
-case "ningguang":return "/img/character/head/Ningguang.png";
-case "noelle":return "/img/character/head/Noelle.png";
-case "qiqi":return "/img/character/head/Qiqi.png";
-case "raiden":return "/img/character/head/Raiden.png";
-case "razor":return "/img/character/head/Razor.png";
-case "rosaria":return "/img/character/head/Rosaria.png";
-case "sara":return "/img/character/head/Sara.png";
-case "sayu":return "/img/character/head/Sayu.png";
-case "sucrose":return "/img/character/head/Sucrose.png";
-case "tartaglia":return "/img/character/head/Tartaglia.png";
-case "thoma":return "/img/character/head/Thoma.png";
-case "traveler":return "/img/character/head/Traveler.png";
-case "venti":return "/img/character/head/Venti.png";
-case "xiangling":return "/img/character/head/Xiangling.png";
-case "xiao":return "/img/character/head/Xiao.png";
-case "xingqiu":return "/img/character/head/Xingqiu.png";
-case "xinyan":return "/img/character/head/Xinyan.png";
-case "yanfei":return "/img/character/head/Yanfei.png";
-case "yoimiya":return "/img/character/head/Yoimiya.png";
-case "zhongli":return "/img/character/head/Zhongli.png";
-case "gorou":return "/img/character/head/Gorou.png";
-case "itto":return "/img/character/head/AratakiItto.png";
+case "albedo":return "/gndatabase/img/gndatabase/character/head/Albedo.png";
+case "aloy":return "/gndatabase/img/gndatabase/character/head/Aloy.png";
+case "amber":return "/gndatabase/img/gndatabase/character/head/Amber.png";
+case "ayaka":return "/gndatabase/img/gndatabase/character/head/Ayaka.png";
+case "barbara":return "/gndatabase/img/gndatabase/character/head/Barbara.png";
+case "beidou":return "/gndatabase/img/gndatabase/character/head/Beidou.png";
+case "bennett":return "/gndatabase/img/gndatabase/character/head/Bennett.png";
+case "chongyun":return "/gndatabase/img/gndatabase/character/head/Chongyun.png";
+case "diluc":return "/gndatabase/img/gndatabase/character/head/Diluc.png";
+case "diona":return "/gndatabase/img/gndatabase/character/head/Diona.png";
+case "eula":return "/gndatabase/img/gndatabase/character/head/Eula.png";
+case "fischl":return "/gndatabase/img/gndatabase/character/head/Fischl.png";
+case "ganyu":return "/gndatabase/img/gndatabase/character/head/Ganyu.png";
+case "hu tao":return "/gndatabase/img/gndatabase/character/head/Hu Tao.png";
+case "jean":return "/gndatabase/img/gndatabase/character/head/Jean.png";
+case "kaeya":return "/gndatabase/img/gndatabase/character/head/Kaeya.png";
+case "kazuha":return "/gndatabase/img/gndatabase/character/head/Kazuha.png";
+case "keqing":return "/gndatabase/img/gndatabase/character/head/Keqing.png";
+case "klee":return "/gndatabase/img/gndatabase/character/head/Klee.png";
+case "kokomi":return "/gndatabase/img/gndatabase/character/head/Kokomi.png";
+case "lisa":return "/gndatabase/img/gndatabase/character/head/Lisa.png";
+case "mona":return "/gndatabase/img/gndatabase/character/head/Mona.png";
+case "ningguang":return "/gndatabase/img/gndatabase/character/head/Ningguang.png";
+case "noelle":return "/gndatabase/img/gndatabase/character/head/Noelle.png";
+case "qiqi":return "/gndatabase/img/gndatabase/character/head/Qiqi.png";
+case "raiden":return "/gndatabase/img/gndatabase/character/head/Raiden.png";
+case "razor":return "/gndatabase/img/gndatabase/character/head/Razor.png";
+case "rosaria":return "/gndatabase/img/gndatabase/character/head/Rosaria.png";
+case "sara":return "/gndatabase/img/gndatabase/character/head/Sara.png";
+case "sayu":return "/gndatabase/img/gndatabase/character/head/Sayu.png";
+case "sucrose":return "/gndatabase/img/gndatabase/character/head/Sucrose.png";
+case "tartaglia":return "/gndatabase/img/gndatabase/character/head/Tartaglia.png";
+case "thoma":return "/gndatabase/img/gndatabase/character/head/Thoma.png";
+case "traveler":return "/gndatabase/img/gndatabase/character/head/Traveler.png";
+case "venti":return "/gndatabase/img/gndatabase/character/head/Venti.png";
+case "xiangling":return "/gndatabase/img/gndatabase/character/head/Xiangling.png";
+case "xiao":return "/gndatabase/img/gndatabase/character/head/Xiao.png";
+case "xingqiu":return "/gndatabase/img/gndatabase/character/head/Xingqiu.png";
+case "xinyan":return "/gndatabase/img/gndatabase/character/head/Xinyan.png";
+case "yanfei":return "/gndatabase/img/gndatabase/character/head/Yanfei.png";
+case "yoimiya":return "/gndatabase/img/gndatabase/character/head/Yoimiya.png";
+case "zhongli":return "/gndatabase/img/gndatabase/character/head/Zhongli.png";
+case "gorou":return "/gndatabase/img/gndatabase/character/head/Gorou.png";
+case "itto":return "/gndatabase/img/gndatabase/character/head/AratakiItto.png";
 
   }
 }
@@ -109,7 +109,7 @@ function characterimage(name){
     image.style.width="120px"
     image.style.margin="5px 0px 5px 0px"
     image.id=name+days[step]
-    image.onclick = function(){location.href = "/character/"+name+".html#talent"}
+    image.onclick = function(){location.href = "/gndatabase/character/"+name+".html#talent"}
     image.classList.add("w3-hover-opacity")
     day.appendChild(image)
   }
@@ -119,7 +119,7 @@ function characterimage(name){
     image.style.width="120px"
     image.style.margin="5px 0px 5px 0px"
     image.id=name+"sunday"
-    image.onclick = function(){location.href = "/character/"+name+".html#talent"}
+    image.onclick = function(){location.href = "/gndatabase/character/"+name+".html#talent"}
     image.classList.add("w3-hover-opacity")
     day.appendChild(image)
 }
@@ -144,7 +144,7 @@ function characterimagev(name,element){
   image.src = imagefile
   image.style.width="120px"
   image.style.margin="5px 0px 5px 0px"
-  image.onclick = function(){location.href = "/character/"+name+".html"}
+  image.onclick = function(){location.href = "/gndatabase/character/"+name+".html"}
   image.classList.add("w3-hover-opacity")
   parent.appendChild(image)
 }
