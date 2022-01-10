@@ -44,7 +44,8 @@ case "yoimiya":return "/img/character/head/Yoimiya.png";
 case "zhongli":return "/img/character/head/Zhongli.png";
 case "gorou":return "/img/character/head/Gorou.png";
 case "itto":return "/img/character/head/AratakiItto.png";
-
+case "shenhe": return "/img/character/head/Shenhe.png";
+case "yunjin": return "/img/character/head/YunJin.png";
   }
 }
 
@@ -94,7 +95,8 @@ case "yoimiya": return ["monday"];
 case "zhongli": return ["wednesday"]; 
 case "gorou": return ["wednesday"]; 
 case "itto": return ["tuesday"]; 
-
+case "shenhe": return ["monday"];
+case "yunjin": return ["tuesday"];
   }
 }
 

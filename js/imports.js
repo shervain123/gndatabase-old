@@ -44,6 +44,8 @@ switch(number){
     case "42": return "zhongli";
     case "43": return "itto";
     case "44": return "gorou";
+    case "45": return "shenhe";
+    case "46": return "yunjin";
 }
 }
 function numtostrw(hex){
@@ -176,6 +178,7 @@ function numtostrw(hex){
         case "7e": return "Akuoumaru";
         case "7f": return "RedhornStonethresher"
         case "80": return "CinnabarSpindle"
+        case "81": return "CalamityQueller"
     
     }
 }
